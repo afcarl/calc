@@ -1,0 +1,24 @@
+@import '../base/variables';
+@import '../base/grid';
+
+.sidenav-in-page-layout__nav {
+  @include span-columns(2);
+  margin-top: $space-6x; // to offset the negative margin on <main>
+  ul {
+    background-color: $color-gray-lightest;
+    list-style-type: none;
+    margin-left: 0;
+    font-size: $medium-font-size;
+    font-weight: bold;
+    a {
+      text-decoration: none;
+    }
+  }
+  li {
+    margin-bottom: $space-1x;
+  }
+}
+.sidenav-in-page-layout__content {
+  @include span-columns(10);
+  margin-right: 0; //default grid override
+}
