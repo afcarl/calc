@@ -69,6 +69,26 @@ footer {
   }
 }
 
+// Creates a large card with space to the right for a sidebar (e.g. for right-side navigation)
+.content--sidebar {
+  header,
+  main {
+    // .container can be used anywhere. Only target top-level ones.
+    > .container {
+      // .row can also be used anywhere; target just top-level classes.
+      nav,
+      .card,
+      .card__footer {
+        @include span-columns(12);
+        .content {
+          @include span-columns(7 of 12);
+          @include shift-in-context(1 of 12);
+        }
+      }
+    }
+  }
+}
+
 /* Applied to "main" element on some steps of data capture to create the appearance
  * of a unified card (despite being composed of two separate "card" DOM elements).
  * Used in conjunction with the standard card classes above. */

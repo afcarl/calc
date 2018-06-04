@@ -4,24 +4,21 @@
 {% block head %}
 {% endblock %}
 
-{% block body_class %}content--skinny{% endblock %}
+{% block body_class %}content--sidebar{% endblock %}
 
 {% block body %}
 <div class="container">
 <div class="row">
   <div class="card">
     <div class="content">
-      <h2>What does CALC do?</h2>
+      <h2 id="what-does-calc-do">What does CALC do?</h2>
       <p>The CALC (Contract Awarded Labor Category) tool searches awarded hourly rate prices on the eight GSA professional services schedules and returns comparable labor categories and prices based on search criteria and filters used. Learn more about the schedules <a href="#schedules">below</a>, or on the <a href="http://www.gsa.gov/portal/category/100611">GSA website.</a></p>
-    </div>
-    <div class="content">
-      <h2>How can CALC help me?</h2>
-      <p>The CALC  tool was built to assist contracting officers and contracting specialists with market research and price analysis for labor categories on federal government contracts.  By capturing award prices in a database with an easy to use interface, we can enable a search to be completed in a couple of seconds and return up to hundreds of comparables, versus spending hours searching paper files or GSA Advantage to come up with only a handful of comparables.  </p>
 
+      <h2 id="how-can-calc-help-me">How can CALC help me?</h2>
+      <p>The CALC  tool was built to assist contracting officers and contracting specialists with market research and price analysis for labor categories on federal government contracts.  By capturing award prices in a database with an easy to use interface, we can enable a search to be completed in a couple of seconds and return up to hundreds of comparables, versus spending hours searching paper files or GSA Advantage to come up with only a handful of comparables.</p>
       <p>Additionally, the tool creates the opportunity to conduct calculations that will allow the contracting officer to gain understanding about the total population of data, such as ranges (highest and lowest prices), average prices. This data is helpful for negotiations for prices on contracts.</p>
-    </div>
-    <div class="content">
-      <h2>Where do the prices in this tool come from?</h2>
+
+      <h2 id="where-do-the-prices-come-from">Where do the prices in this tool come from?</h2>
       <p>This tool shows actual ceiling prices awarded to various vendors at the master contract level, on the eight GSA professional services schedules listed <a href="#schedules">below.</a>  These are not prices paid at the task order level, which may be slightly different (e.g. to reflect a discount).</p>
       <h3>Rates you see in CALC are:</h3>
       <ul id="about">
@@ -30,9 +27,8 @@
       <li>For the current fiscal year</li>
       <li>Worldwide awarded rates</li>
       </ul>
-    </div>
-    <div class="content">
-      <h2>Where does the data come from?</h2>
+      
+      <h2 id="where-does-the-data-come-from">Where does the data come from?</h2>
       <p>The labor category prices are the awarded labor categories and prices on the companies' GSA Schedules. It is the same data that is uploaded into GSA Advantage; however, it is loaded on the day of award versus up to six months later (FSS-600) after award.
        </p>
        <p>
@@ -40,7 +36,7 @@
       </p>
     </div>
     <div class="content">
-      <h2>Where does the data reside?</h2>
+      <h2 id="where-does-the-data-reside">Where does the data reside?</h2>
       <p>The source data is housed in a database on GSA Region 10 servers and within an Amazon Web Services account for GSA 18F.</p>
     </div>
     <div class="content">
@@ -77,8 +73,16 @@
       <p>IT Schedule 70 offers federal, state and local governments innovative solutions to their information technology needs.<br />
       <i>Note: IT Schedule 70 is newly added so available results in CALC is currently limited.</i></p>
     </div><!--content-->
+
+    {% block sidebar %}
+    <div id="right-nav" class="sidebar columns three">
+      <h2>Topics</h2>
+    </div>
+    {% endblock %}
+
   </div><!--card-->
 </div><!--row-->
+
 
 </div>
 {% endblock %}
