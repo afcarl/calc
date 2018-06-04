@@ -11,6 +11,7 @@
 <div class="row">
   <div class="card">
     <div class="content">
+      <h1>About CALC</h1>
       <h2 id="what-does-calc-do">What does CALC do?</h2>
       <p>The CALC (Contract Awarded Labor Category) tool searches awarded hourly rate prices on the eight GSA professional services schedules and returns comparable labor categories and prices based on search criteria and filters used. Learn more about the schedules <a href="#schedules">below</a>, or on the <a href="http://www.gsa.gov/portal/category/100611">GSA website.</a></p>
 
@@ -27,19 +28,17 @@
       <li>For the current fiscal year</li>
       <li>Worldwide awarded rates</li>
       </ul>
-      
+
       <h2 id="where-does-the-data-come-from">Where does the data come from?</h2>
       <p>The labor category prices are the awarded labor categories and prices on the companies' GSA Schedules. It is the same data that is uploaded into GSA Advantage; however, it is loaded on the day of award versus up to six months later (FSS-600) after award.
        </p>
        <p>
        The contracting officer uploads the data to the pricing tool after the price list is reviewed, approved, and the contract award is made.
       </p>
-    </div>
-    <div class="content">
+
       <h2 id="where-does-the-data-reside">Where does the data reside?</h2>
       <p>The source data is housed in a database on GSA Region 10 servers and within an Amazon Web Services account for GSA 18F.</p>
-    </div>
-    <div class="content">
+
       <h2 id="schedules">What are these schedules?</h2>
       <p>Visit <a href="http://www.gsa.gov/portal/category/100611">GSA's website</a> to learn more about the Multiple Award Schedules (MAS).</p>
 
@@ -75,8 +74,10 @@
     </div><!--content-->
 
     {% block sidebar %}
-    <div id="right-nav" class="sidebar columns three">
-      <h2>Topics</h2>
+    <div id="right-nav" class="sidenav-in-page-layout__nav columns three">
+      <h4>Topics</h4>
+      <ul>
+        <li><a href="#schedules">What are these schedules of which you speak?</a>
     </div>
     {% endblock %}
 

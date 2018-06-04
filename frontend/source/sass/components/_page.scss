@@ -90,8 +90,8 @@ footer {
 }
 
 /* Applied to "main" element on some steps of data capture to create the appearance
- * of a unified card (despite being composed of two separate "card" DOM elements).
- * Used in conjunction with the standard card classes above. */
+* of a unified card (despite being composed of two separate "card" DOM elements).
+* Used in conjunction with the standard card classes above. */
 .card--collapse-header {
   .card:first-child {
     border-bottom: none;
@@ -112,7 +112,7 @@ footer {
   border-bottom: $space-half solid $background-color;
 
   /* This will only apply to cards that do not have a .card__footer.
-   * That class applies these styles as a top border to approximate the same thing. */
+  * That class applies these styles as a top border to approximate the same thing. */
   &:last-child {
     border-bottom-color: $color-gray-light;
     margin-bottom: $space-10x;
@@ -148,5 +148,25 @@ footer {
   }
   h1, p {
     flex: 1 100%;
+  }
+}
+
+.sidenav-in-page-layout__nav {
+  background-color: $color-gray-lightest;
+  padding: $space-2x;
+  h4 {
+    margin-top: 0;
+  }
+  ul {
+    list-style-type: none;
+    margin-left: 0;
+    font-size: $medium-font-size;
+    font-weight: bold;
+    a {
+      text-decoration: none;
+    }
+  }
+  li {
+    margin-bottom: $space-1x;
   }
 }
