@@ -12,6 +12,3 @@ class Command(BaseCommand):
 
         print("Updating normalized labor categories...")
         Contract.objects.bulk_update_normalized_labor_categories()
-
-        print("Updating full-text search indexes...")
-        Contract.objects.update_search_index()

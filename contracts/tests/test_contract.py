@@ -82,10 +82,21 @@ class ContractTestCase(TestCase):
         self.assertEqual(c1._normalized_labor_category, 'lol foo')
         self.assertEqual(c2._normalized_labor_category, 'lol bar')
 
+        results = Contract.objects.multi_phrase_search('lol foo').all()
+        self.assertEqual([r.labor_category for r in results], ['foo'])
+
     def test_update_normalized_labor_category_returns_bool(self):
         c = get_contract_recipe().prepare(labor_category='jr person')
         self.assertTrue(c.update_normalized_labor_category())
         self.assertFalse(c.update_normalized_labor_category())
+
+    def test_bulk_create_updates_search_index(self):
+        c1 = get_contract_recipe().prepare(labor_category='jr person')
+        c2 = get_contract_recipe().prepare(labor_category='engineer')
+        Contract.objects.bulk_create([c1, c2])
+
+        results = Contract.objects.multi_phrase_search('person').all()
+        self.assertEqual([r.labor_category for r in results], ['jr person'])
 
     def test_bulk_create_updates_normalized_labor_category(self):
         c = get_contract_recipe().prepare(labor_category='jr person')

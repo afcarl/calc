@@ -21,6 +21,8 @@ Welcome to CALC's developer documentation!
    :caption: Development
 
    Style guide <https://calc-dev.app.cloud.gov/styleguide/>
+   linting
+   editors
    testing
    frontend
    API <https://calc-dev.app.cloud.gov/api/docs/>

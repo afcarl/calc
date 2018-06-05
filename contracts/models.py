@@ -84,11 +84,12 @@ class CurrentContractManager(models.Manager):
         call Contract.save().
         '''
 
+        pks = []
         updates = []
         num_updates = 0
-        for contract in self.all().only('id', 'labor_category',
-                                        '_normalized_labor_category'):
+        for contract in self.only('id', 'labor_category', '_normalized_labor_category'):
             if contract.update_normalized_labor_category():
+                pks.append(contract.id)
                 updates.append(contract.id)
                 updates.append(contract._normalized_labor_category)
                 num_updates += 1
@@ -106,22 +107,21 @@ class CurrentContractManager(models.Manager):
                     "  WHERE contracts_contract.id = v.id"
                 )
                 cursor.execute(sql, updates)
+            self.filter(pk__in=pks).update_search_index()
         return num_updates
 
     def bulk_create(self, contracts, *args, **kwargs):
         for contract in contracts:
             contract.update_normalized_labor_category()
-        return super().bulk_create(contracts, *args, **kwargs)
+        contracts = super().bulk_create(contracts, *args, **kwargs)
+        self.filter(pk__in=[c.pk for c in contracts]).update_search_index()
+        return contracts
 
     def multi_phrase_search(self, *args, **kwargs):
         return self.get_queryset().multi_phrase_search(*args, **kwargs)
 
     def search(self, *args, **kwargs):
         return self.get_queryset().search(*args, **kwargs)
-
-    def update_search_index(self):
-        return self.update(
-            search_index=SearchVector('_normalized_labor_category'))
 
     def get_queryset(self):
         return ContractsQuerySet(self.model, using=self._db)\

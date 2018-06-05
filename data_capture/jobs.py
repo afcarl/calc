@@ -66,11 +66,6 @@ def _process_bulk_upload(upload_source):
             f"({total_bad_rows} bad rows found)."
         )
 
-    contracts_logger.info("Updating full-text search indexes.")
-
-    # Update search field on Contract models
-    Contract.objects.update_search_index()
-
     # Update the upload_source
     upload_source.has_been_loaded = True
     upload_source.save()
