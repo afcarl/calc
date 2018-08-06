@@ -1,4 +1,4 @@
-from contracts.models import Contract
+from contracts.models import Contract, ScheduleMetadata
 from rest_framework import serializers
 
 
@@ -38,3 +38,9 @@ class ContractSerializer(serializers.ModelSerializer):
                   'second_year_price', 'schedule', 'sin', 'contractor_site',
                   'business_size')
         list_serializer_class = ContractListSerializer
+
+
+class ScheduleMetadataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ScheduleMetadata
+        fields = ('schedule', 'sin', 'full_name')

@@ -11,7 +11,6 @@ import {
   MAX_EXPERIENCE,
   SITE_LABELS,
   BUSINESS_SIZE_LABELS,
-  SCHEDULE_LABELS,
   CONTRACT_YEAR_LABELS,
   DEFAULT_CONTRACT_YEAR,
   DEFAULT_SORT,
@@ -20,6 +19,10 @@ import {
   SORT_KEYS,
   MAX_QUERY_LENGTH,
 } from './constants';
+
+import {
+  scheduleLabels,
+} from './schedule-metadata';
 
 import {
   parsePrice,
@@ -53,7 +56,7 @@ const coercedString = (val) => {
 const coercedExperience = defaultVal => (val) => {
   const valInt = parseInt(val, 10);
 
-  if (isNaN(valInt)) {
+  if (isNaN(valInt)) { /* eslint-disable-line no-restricted-globals */
     return defaultVal;
   }
 
@@ -84,20 +87,18 @@ export const serializers = {
 };
 
 export const deserializers = {
-  exclude: list =>
-    coercedString(list)
-      .split(',')
-      .map(x => parseInt(x, 10))
-      .filter(x => !isNaN(x)),
-  education: list =>
-    coercedString(list)
-      .split(',')
-      .filter(x => x in EDU_LABELS),
+  exclude: list => coercedString(list)
+    .split(',')
+    .map(x => parseInt(x, 10))
+    .filter(x => !isNaN(x)), /* eslint-disable-line no-restricted-globals */
+  education: list => coercedString(list)
+    .split(',')
+    .filter(x => x in EDU_LABELS),
   q: s => coercedString(s).slice(0, MAX_QUERY_LENGTH),
   'contract-year': stringInSet(CONTRACT_YEAR_LABELS, DEFAULT_CONTRACT_YEAR),
   site: stringInSet(SITE_LABELS),
   business_size: stringInSet(BUSINESS_SIZE_LABELS),
-  schedule: stringInSet(SCHEDULE_LABELS),
+  schedule: stringInSet(scheduleLabels),
   min_experience: coercedExperience(MIN_EXPERIENCE),
   max_experience: coercedExperience(MAX_EXPERIENCE),
   'proposed-price': parsePrice,

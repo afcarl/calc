@@ -51,29 +51,26 @@ function execInVm(file) {
 }
 
 describe('webpackify', () => {
-  it('sets __filename properly', () =>
-    webpackify('examples/filename.js').then((file) => {
-      expect(execInVm(file).myFilename)
-        .toEqual('frontend/gulp/tests/examples/filename.js');
-    }));
+  it('sets __filename properly', () => webpackify('examples/filename.js').then((file) => {
+    expect(execInVm(file).myFilename)
+      .toEqual('frontend/gulp/tests/examples/filename.js');
+  }));
 
-  it('performs dead code removal in production', () =>
-    webpackify('examples/node_env.js', {
-      isProd: true,
-    }).then((file) => {
-      const sandbox = execInVm(file);
-      expect(sandbox.myNodeEnv).toEqual('production');
-      expect(sandbox.log).toEqual('I AM PRODUCTION');
-      expect(file.contents.toString())
-        .not.toEqual(expect.stringMatching(/I AM NOT PRODUCTION/));
-    }));
+  it('performs dead code removal in production', () => webpackify('examples/node_env.js', {
+    isProd: true,
+  }).then((file) => {
+    const sandbox = execInVm(file);
+    expect(sandbox.myNodeEnv).toEqual('production');
+    expect(sandbox.log).toEqual('I AM PRODUCTION');
+    expect(file.contents.toString())
+      .not.toEqual(expect.stringMatching(/I AM NOT PRODUCTION/));
+  }));
 
-  it('sets NODE_ENV to empty string when not in production', () =>
-    webpackify('examples/node_env.js', {
-      isProd: false,
-    }).then((file) => {
-      const sandbox = execInVm(file);
-      expect(execInVm(file).myNodeEnv).toEqual('development');
-      expect(sandbox.log).toEqual('I AM NOT PRODUCTION');
-    }));
+  it('sets NODE_ENV to empty string when not in production', () => webpackify('examples/node_env.js', {
+    isProd: false,
+  }).then((file) => {
+    const sandbox = execInVm(file);
+    expect(execInVm(file).myNodeEnv).toEqual('development');
+    expect(sandbox.log).toEqual('I AM NOT PRODUCTION');
+  }));
 });

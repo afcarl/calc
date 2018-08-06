@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import React from 'react';
 import { connect } from 'react-redux';
 
@@ -25,7 +27,11 @@ function makeOptions(min, max) {
   const options = [];
 
   for (let i = min; i <= max; i++) {
-    options.push(<option key={i} value={i}>{i}</option>);
+    options.push(
+      <option key={i} value={i}>
+        {i}
+      </option>
+    );
   }
 
   return options;
@@ -84,25 +90,34 @@ export class Experience extends React.Component {
           <Range
             id={rangeId}
             allowCross={false}
-            min={MIN_EXPERIENCE} max={MAX_EXPERIENCE}
+            min={MIN_EXPERIENCE}
+            max={MAX_EXPERIENCE}
             value={this.state.sliderVal}
             onChange={this.onSliderChange}
             onAfterChange={this.onAfterSliderChange}
             className="experience-slider"
           />
           <div className="experience_range">
-            <label htmlFor={minId} className="usa-sr-only">Minimum Years</label>
+            <label htmlFor={minId} className="usa-sr-only">
+Minimum Years
+            </label>
             <select
-              id={minId} value={min} name="min_experience"
+              id={minId}
+              value={min}
+              name="min_experience"
               onChange={onChange('min')}
               className={minClasses}
             >
               {makeOptions(MIN_EXPERIENCE, max)}
             </select>
             {' - '}
-            <label htmlFor={maxId} className="usa-sr-only">Maximum Years</label>
+            <label htmlFor={maxId} className="usa-sr-only">
+Maximum Years
+            </label>
             <select
-              id={maxId} value={max} name="max_experience"
+              id={maxId}
+              value={max}
+              name="max_experience"
               onChange={onChange('max')}
               className={maxClasses}
             >

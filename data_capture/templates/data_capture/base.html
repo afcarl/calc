@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
+{% load static data_explorer_tags %}
 
-{% load static %}
-
-{% block title %}Data Capture{% endblock title %}
+{% block head_meta %}
+  {% head_meta title='Data Capture' %}
+{% endblock %}
 
 {% block head %}
-{% if not is_safe_mode_enabled %}
-<script src="{% static 'frontend/built/js/data-capture.js' %}"></script>
-{% endif %}
-<link rel="stylesheet" href="{% static 'frontend/built/style/data_capture.min.css' %}">
+  <link rel="stylesheet" href="{% static 'frontend/built/style/data_capture.min.css' %}">
 {% endblock head %}
 
 {% block before_body_close %}
-{% include 'frontend/safe_mode/ui.html' %}
+  {% include 'frontend/safe_mode/ui.html' %}
+  {% if not is_safe_mode_enabled %}
+    <script src="{% static 'frontend/built/js/data-capture.js' %}"></script>
+  {% endif %}
 {% endblock %}

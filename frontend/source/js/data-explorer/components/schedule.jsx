@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { filterActive } from '../util';
 import { makeOptions } from './util';
 import { setSchedule as setScheduleAction } from '../actions';
-import { SCHEDULE_LABELS } from '../constants';
+import { scheduleLabels } from '../schedule-metadata';
 
 export function Schedule({ idPrefix, schedule, setSchedule }) {
   const id = `${idPrefix}schedule`;
@@ -13,16 +13,20 @@ export function Schedule({ idPrefix, schedule, setSchedule }) {
 
   return (
     <div className="filter filter-schedule">
-      <label htmlFor={id}>SIN / Schedule:</label>
+      <label htmlFor={id}>
+Contract vehicle:
+      </label>
       <a href="/about#schedules" className="filter-more-info">
         What&apos;s this?
       </a>
       <select
-        id={id} name="schedule" value={schedule}
+        id={id}
+        name="schedule"
+        value={schedule}
         onChange={handleChange}
         className={filterActive(schedule !== '')}
       >
-        {makeOptions(SCHEDULE_LABELS)}
+        {makeOptions(scheduleLabels)}
       </select>
     </div>
   );

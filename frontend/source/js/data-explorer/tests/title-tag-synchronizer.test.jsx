@@ -13,8 +13,11 @@ describe('<TitleTagSynchronizer>', () => {
       document: fakeDocument,
     };
 
-    wrapper = makeSetup(TitleTagSynchronizer, defaultProps,
-      { wrapperOnly: true })(extraProps).wrapper;
+    wrapper = makeSetup(/* eslint-disable-line prefer-destructuring */
+      TitleTagSynchronizer,
+      defaultProps,
+      { wrapperOnly: true }
+    )(extraProps).wrapper;
   };
 
   it('leaves title unchanged on mount if query is empty', () => {

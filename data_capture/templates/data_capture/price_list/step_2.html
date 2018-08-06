@@ -1,14 +1,23 @@
 {% extends 'data_capture/step.html' %}
-{% load frontend %}
+{% load frontend data_explorer_tags %}
+
+{% block head_meta %}
+  {% capture as title strip %}
+    {{ step.description|capfirst }}: Enter vendor details
+  {% endcapture %}
+  {% head_meta title=title %}
+{% endblock %}
+
 {% block body_class %}content--skinny{% endblock %}
 {% block main_class %}secondary-step{% endblock %}
-{% block subtitle %}Enter vendor details{% endblock %}
 
-{% block step_heading %}<h2>Enter details for this price list</h2>
-<p>We need a little more information about the vendor and contract.</p>
+{% block step_heading %}
+  <h2>Enter details for this price list</h2>
+  <p>We need a little more information about the vendor and contract.</p>
 {% endblock %}
+
 {% block step_body %}
-  <form method="post">
+  <form method="post" class="form--contract_details" id="vendor-contract-form">
   {% csrf_token %}
 
   {{ form.non_field_errors }}

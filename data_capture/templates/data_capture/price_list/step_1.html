@@ -1,10 +1,12 @@
 {% extends 'data_capture/step.html' %}
 {% load frontend %}
+
 {% block body_class %}content--skinny{% endblock %}
-{% block subtitle %}Upload price list{% endblock %}
+
 {% block page_heading %}
-Add awarded price data to CALC
+  Add awarded price data to CALC
 {% endblock %}
+
 {% block step_heading %}
 <p>
   Start here to add finalized price list data to CALC.
@@ -17,7 +19,7 @@ Add awarded price data to CALC
 {% endblock %}
 
 {% block step_body %}
-<form method="post">
+<form method="post" class="form--contract_details">
   {% csrf_token %}
   {{ form.non_field_errors }}
 

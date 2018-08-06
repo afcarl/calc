@@ -8,3 +8,4 @@ require('./date_tests');
 require('./smooth-scroll_tests');
 require('./ga_tests');
 require('./data-explorer_tests');
+require('./form-validation_tests');

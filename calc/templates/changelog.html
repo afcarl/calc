@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 
-{% block title %}Updates{% endblock %}
+{% load data_explorer_tags %}
+
+{% block head_meta %}
+  {% head_meta title="Updates" %}
+{% endblock %}
+
 {% block body_class %}content--skinny{% endblock %}
 {% block body %}
 <div class="container">

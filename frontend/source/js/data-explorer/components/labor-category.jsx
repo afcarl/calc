@@ -53,20 +53,25 @@ export class LaborCategory extends React.Component {
   render() {
     const id = `${this.props.idPrefix}labor_category`;
     const className = filterActive(this.props.query !== '',
-                                   'form__inline');
+      'form__inline');
 
     return (
       <div>
         <input
-          id={id} name="q" placeholder="Type a labor category"
-          className={className} type="text"
+          id={id}
+          name="q"
+          placeholder="Type a labor category"
+          className={className}
+          type="text"
           ref={(el) => { this.inputEl = el; }}
           value={this.state.value}
           onChange={this.handleChange}
           onKeyDown={handleEnter(this.handleEnter)}
           maxLength={MAX_QUERY_LENGTH}
         />
-        <label htmlFor={id} className="usa-sr-only">Type a labor category</label>
+        <label htmlFor={id} className="usa-sr-only">
+Type a labor category
+        </label>
         {this.props.children}
       </div>
     );

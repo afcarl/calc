@@ -1,6 +1,8 @@
 // @ts-check
 /* eslint-env browser */
 
+import { parse as urlParse } from "url";
+
 /**
  * This is DAP's weird exported Google Analytics function, documented
  * at:
@@ -45,7 +47,7 @@ export function ga(...args) {
  *   search query.
  */
 export function trackVirtualPageview(url) {
-  ga('set', 'page', url || location.pathname + location.search);
+  ga('set', 'page', url || location.pathname + location.search); /* eslint-disable-line no-restricted-globals */
   ga('send', 'pageview');
   gas('send', 'pageview', url);
 }
@@ -92,7 +94,18 @@ function trackInterestingLink(el) {
     return;
   }
 
-  const isExternal = el.host !== window.location.host;
+  // The 'host' and 'hostname' properties on IE11 are
+  // unreliable, so we'll parse the URL manually.
+  //
+  // For more details, see:
+  // https://github.com/18F/calc/pull/2007#discussion_r195593715
+  const { pathname, host, hostname } = urlParse(el.href);
+
+  if (!(pathname && host && hostname)) {
+    return;
+  }
+
+  const isExternal = host !== window.location.host;
 
   if (isExternal) {
     // Note that the format of this event corresponds to
@@ -100,14 +113,14 @@ function trackInterestingLink(el) {
     // means that anyone who wants to e.g. track statistics about
     // outbound links across all federal properties can do so,
     // and statistics from CALC will be included.
-    trackEvent('Outbound', el.hostname, el.pathname);
+    trackEvent('Outbound', hostname, pathname);
   } else {
     const isLocalDownload = LOCAL_DOWNLOAD_URLS.some(
-      url => el.pathname.indexOf(url) === 0
+      url => pathname.indexOf(url) === 0
     );
 
     if (isLocalDownload) {
-      trackEvent('Local Download', el.pathname, el.href);
+      trackEvent('Local Download', pathname, el.href);
     }
   }
 }
@@ -119,4 +132,21 @@ export function autoTrackInterestingLinks() {
   document.documentElement.addEventListener('click', (e) => {
     trackInterestingLink(e.target);
   }, true);
+}
+
+/**
+ * Track an exception. For more details, see:
+ * 
+ *   https://developers.google.com/analytics/devguides/collection/analyticsjs/exceptions
+ * 
+ * @param {string} description - A description of the exception.
+ * @param {boolean?} isFatal - true if the exception was fatal.
+ */
+export function trackException(description, isFatal) {
+  const fieldsObject = {
+    exDescription: description,
+    exFatal: isFatal || false
+  };
+  ga('send', 'exception', fieldsObject);
+  gas('send', 'exception', fieldsObject);
 }

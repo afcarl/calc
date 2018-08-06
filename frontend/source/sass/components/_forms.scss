@@ -76,7 +76,6 @@ fieldset + div + fieldset {
 // for errors, and <span class="helptext"> for help text.
 fieldset.fieldset-error {
   border-left: 3px solid $color-red-dark;
-  background-color: #fef5f5;
   margin: 3rem 0 0 -10px;
   padding: 10px;
   ul {
@@ -103,6 +102,7 @@ form > .fieldset-error {
   color: $color-red-dark;
   font-weight: 700;
   list-style-type: none;
+  margin-top: 0;
   margin-bottom: 0.5rem;
   padding-left: 0; // ul override
   text-align: left;
@@ -112,6 +112,25 @@ form > .fieldset-error {
     margin-bottom: 0;
   }
 }
+
+// Applied by form-validation.js as an enhancement for html5 validation styles
+.form--invalid:not(.usa-input-inline) {
+  border: 3px solid $color-red-dark;
+}
+
+.fieldset__form--invalid {
+  border-left: 3px solid $color-red-dark;
+  margin: 3rem 0 0 -10px;
+  padding: 10px;
+}
+
+p.form--invalid__message {
+  margin: 0;
+  padding: 0;
+  font-weight: $font-weight-bold;
+  color: $color-red-dark;
+}
+
 
 .helptext {
   color: $color-gray;
@@ -130,13 +149,13 @@ form > .fieldset-error {
       margin-right: 0;
     }
   }
-  p {
-    display: inline-block;
-    padding: 0px 40px;
-    vertical-align: bottom;
-    margin-bottom: 15px;
-    font-weight: bold;
-  }
+  //p {
+    //display: inline-block;
+    //padding: 0px 40px;
+    //vertical-align: bottom;
+    //margin-bottom: 15px;
+    //font-weight: bold;
+  //}
 }
 
 dl.contract-details {

@@ -1,0 +1,26 @@
+{% extends "styleguide_fullpage_example.html" %}
+{% load styleguide %}
+
+{% block body %}
+<body class="content--skinny">
+  <main>
+    <div class="container">
+      <div class="card">
+        <div class="content">
+{# BEGIN SNIPPET #}
+{% guide %}
+
+{% guide_section "Introduction" %}
+<p>Here is an introduction!</p>
+
+{% guide_section "Stuff" %}
+<p>Here is where we write about stuff!</p>
+
+{% endguide %}
+{# END SNIPPET #}
+        </div>
+      </div>
+    </div>
+  </main>
+</body>
+{% endblock %}

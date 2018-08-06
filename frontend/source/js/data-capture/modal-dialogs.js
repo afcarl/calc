@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* global $, document, window */
 
 import A11yDialog from 'a11y-dialog';

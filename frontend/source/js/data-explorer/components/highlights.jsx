@@ -23,29 +23,41 @@ export function Highlights({
       <div className="price-block">
         <div className="row">
           <div className="standard-deviation-block">
-            <h5 className="standard-deviation-title">Std deviation -1</h5>
+            <h5 className="standard-deviation-title">
+Std deviation -1
+            </h5>
             <h5 className="sd-highlight">
-              ${formatPrice(stdDevMinus)}
+              $
+              {formatPrice(stdDevMinus)}
             </h5>
           </div>
           <div className="avg-price-block">
-            <h5 className="avg-price-title">Average</h5>
+            <h5 className="avg-price-title">
+Average
+            </h5>
             <h5 className="avg-price-highlight">
-              ${formatPrice(avgPrice)}
+              $
+              {formatPrice(avgPrice)}
             </h5>
           </div>
           <div className="standard-deviation-block">
-            <h5 className="standard-deviation-title">Std deviation +1</h5>
+            <h5 className="standard-deviation-title">
+Std deviation +1
+            </h5>
             <h5 className="sd-highlight">
-              ${formatPrice(stdDevPlus)}
+              $
+              {formatPrice(stdDevPlus)}
             </h5>
           </div>
         </div>
       </div>
       <div className="proposed-price-block" style={proposedPriceStyle}>
-        <h5 className="proposed-price-title">Proposed price</h5>
+        <h5 className="proposed-price-title">
+Proposed price
+        </h5>
         <h5 className="proposed-price-highlight">
-          ${formatPrice(proposedPrice)}
+          $
+          {formatPrice(proposedPrice)}
         </h5>
       </div>
     </div>

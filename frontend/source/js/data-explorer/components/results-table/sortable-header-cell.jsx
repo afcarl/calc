@@ -43,13 +43,15 @@ export function createHeaderCellConnector(description, title, key) {
     const wrappedComponent = ({ sort, setSort }) => {
       const classes = getHeaderCellClasses(key, sort);
 
-      return (<Component
-        className={classNames(classes)}
-        toggleSort={createSortToggler(key, sort, setSort)}
-        tooltip={createSortHeaderTooltip(description || title,
-                                               classes)}
-        title={title}
-      />);
+      return (
+        <Component
+          className={classNames(classes)}
+          toggleSort={createSortToggler(key, sort, setSort)}
+          tooltip={createSortHeaderTooltip(description || title,
+            classes)}
+          title={title}
+        />
+      );
     };
 
     wrappedComponent.propTypes = {

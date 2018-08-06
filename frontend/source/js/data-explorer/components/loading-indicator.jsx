@@ -9,7 +9,11 @@ export function LoadingIndicator({ error, inProgress }) {
   if (error) {
     ariaStatus = '';
     if (error !== 'abort') {
-      errorMessage = <div className="error-message">{error}</div>;
+      errorMessage = (
+        <div className="error-message">
+          {error}
+        </div>
+      );
       ariaStatus = `An error occurred when loading results: ${error}`;
     }
   }
@@ -27,7 +31,9 @@ export function LoadingIndicator({ error, inProgress }) {
         * from screen readers and using the preceding element to
         * convey status information to visually impaired users. */}
       <div className="loading-indicator" aria-hidden="true">
-        <p className="message">Loading results...</p>
+        <p className="message">
+Loading results...
+        </p>
         {errorMessage}
       </div>
     </div>

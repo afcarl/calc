@@ -14,7 +14,7 @@ function showEnableSafeModeUI() {
   }
 }
 
-window.onerror = function() {
+window.onerror = function(msg, url, lineNumber) {
   globalErrorCount++;
 
   // Enclose the following in a try/catch to avoid infinite recursion.

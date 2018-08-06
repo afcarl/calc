@@ -2,6 +2,10 @@
 
 **This section is only of interest to 18F team members.**
 
+In general, you should not need to do any manual deployments of CALC because we use automated deploys from CircleCI for both our development and production deployed instances. See our [Release process](release.md) docs for how we tag and deploy new production releases.
+
+### Prerequisites
+
 Download the Cloud Foundry CLI according to the [cloud.gov instructions][].
 Make sure you are using at least version v6.17.1, otherwise pushing
 multiple apps at once might not work.
@@ -13,17 +17,22 @@ plugin for Cloud Foundry, which is used for zero-downtime deploys.
 You can install via
 `cf install-plugin autopilot -f -r CF-Community`.
 
+### Logging in to cloud.gov from the terminal
+
 CALC is deployed to the GovCloud instance of cloud.gov. You will need to login
 to via the GovCloud api of cloud.gov:
 `cf login -a api.fr.cloud.gov --sso`
 
-Then target the org and space you want to work with. For example, if you wanted to work with the dev space:
+Then target the org and space you want to work with. For example, if you wanted to work with the `dev` space:
 `cf target -o fas-calc -s dev`
 
 Manifest files, which contain import deploy configuration settings, are located
 in the [manifests](../manifests/) directory of this project.
 
+### Python dependencies in deployments 
+
 Note that this project has two requirements files:
+
 * `requirements.txt` for production dependencies
 * `requirements-dev.txt` for development and testing dependencies
 
@@ -35,31 +44,34 @@ only production dependencies will be installed.
 
 ### Cloud Foundry structure
 
-- cloud.gov environment: `GovCloud`
-- Organization: `fas-calc`
-- Spaces: `dev`, `staging`, `prod`
-- Apps:
-  - `dev` space:
-    - `calc-dev`
-    - `calc-rqworker`
-    - `calc-rqscheduler`
-  - `staging` space:
-    - `calc-staging`
-    - `calc-rqworker`
-    - `calc-rqscheduler`
-  - `prod` space:
-    - `calc-prod`
-    - `calc-rqworker`
-    - `calc-rqscheduler`
-    - `calc-maintenance`
-- Routes:
-  - calc-dev.app.cloud.gov -> `dev` space, `calc-dev` app
-  - calc-staging.app.cloud.gov -> `staging` space, `calc-staging` app
-  - calc-prod.app.cloud.gov -> `prod` space, `calc-prod` app
-  - calc.gsa.gov -> `prod` space, `calc-prod` app
+* cloud.gov environment: `GovCloud`
+* Organization: `fas-calc`
+* Spaces: `dev`, `prod`
+* Apps:
+  * `dev` space:
+    * `calc-dev`
+    * `calc-rqworker`
+    * `calc-rqscheduler`
+  * `prod` space:
+    * `calc-prod`
+    * `calc-rqworker`
+    * `calc-rqscheduler`
+    * `calc-maintenance`
+* Routes:
+  * calc-dev.app.cloud.gov -> `dev` space, `calc-dev` app
+  * calc-prod.app.cloud.gov -> `prod` space, `calc-prod` app
+  * calc.gsa.gov -> `prod` space, `calc-prod` app
     or the maintenance page app, `calc-maintenance`
 
 ### Services
+
+#### Service Account Service
+
+CALC uses cloud.gov [service account services][service account] to provision cloud.gov credentials for automated deployments from CircleCI.
+
+Each cloud.gov space that CALC uses has an associated service account with a name of the form `calc-<SPACE NAME>-deployer-circle`.
+
+For information on how to create or rotate cloud.gov credentials from a service account service refer to the [cloud.gov docs][service account].
 
 #### Identity Provider Service
 
@@ -87,7 +99,7 @@ variables, instead of using the local environment (except for [New Relic-related
 You will need to create a UPS called `calc-env`, provide 'credentials' to it, and link it to the
 application instance. This will need to be done for every Cloud Foundry `space`.
 
-First, create a JSON file (e.g. `credentials-staging.json`) with all the configuration values specified as per the
+First, create a JSON file (e.g. `credentials-dev.json`) with all the configuration values specified as per the
 [Environment variables](environment.md). **DO NOT COMMIT THIS FILE.**
 
 ```json
@@ -101,7 +113,7 @@ Then enter the following commands (filling in the main application instance name
 for `<APP_INSTANCE>`) to create the user-provided service:
 
 ```sh
-cf cups calc-env -p credentials-staging.json
+cf cups calc-env -p credentials-dev.json
 cf bind-service <APP_INSTANCE> calc-env
 cf restage <APP_INSTANCE>
 ```
@@ -109,7 +121,7 @@ cf restage <APP_INSTANCE>
 You can update the user-provided service with the following commands:
 
 ```sh
-cf uups calc-env -p credentials-staging.json
+cf uups calc-env -p credentials-dev.json
 cf restage calc-dev
 ```
 
@@ -145,58 +157,21 @@ As described in [Environment variables](environment.md), you will need
 to supply the `NEW_RELIC_LICENSE_KEY` as part of each deployment's
 [User Provided Service](#user-provided-service-ups).
 
-### Staging server
+### Deployed instances
 
-The staging server updates automatically when changes are merged into the
-`develop` branch. Check out the `deploy` sections of
-the [CircleCI config](../.circleci/config.yml) for details and settings.
 
-Should you need to, you can push directly to calc-dev.app.cloud.gov with:
+The **development** instance of CALC ([https://calc-dev.app.cloud.gov](https://calc-dev.app.cloud.gov)) is deployed automatically when changes are merged into the `develop` branch.
 
-```sh
-cf target -o fas-calc -s dev
-cf push -f manifests/manifest-staging.yml
-```
+The **production** instance of CALC, whose main app resides at [https://calc.gsa.gov](https://calc.gsa.gov), is deployed automatically from CircleCI when commits are pushed to the `master` branch.
 
-### Production servers
+Check out the `deploy` sections of the [CircleCI config](../.circleci/config.yml) for details and settings for automated deploys.
 
-Production deploys are a somewhat manual process in that they are not done
-from CI. However, just like in our CircleCI deployments to staging, we use the
-Cloud Foundry [autopilot plugin](https://github.com/contraband/autopilot).
-
-To deploy, first make sure you are targeting the prod space:
-
-```sh
-cf target -o fas-calc -s prod
-```
-
-Now, if you don't already have the autopilot plugin, you can install it by running:
-
-```sh
-cf install-plugin autopilot -f -r CF-Community
-```
-
-At the time of writing, we did not have enough memory allocated to do a `zero-downtime-push`
-(which effectively doubles memory usage since it spins up another app instance)
-without first decreasing the memory footprint. This can be accomplished by scaling
-down the number of app instances:
-
-```sh
-cf scale -i 1 calc-prod
-```
-
-Then use the autopilot plugin's `zero-downtime-push` command to deploy:
-
-```sh
-cf zero-downtime-push calc-prod -f manifests/manifest-prod.yml
-```
-
-If a breaking database migration needs to be done, things get a little trickier because
-the database service is actually shared between the two production apps. If the migration
-breaks the current version of CALC, we'll need to have a (hopefully short) amount of downtime.
+### Maintenance page app
 
 We have a very simple maintenance page application that uses the CloudFoundry staticfiles
-buildpack. This app is in the [maintenance_page](../maintenance_page/) subdirectory.
+buildpack. This is a helpful application to use during periods of planned downtime, such as during a large database migration.
+
+The maintenance page app code is in the [maintenance_page](../maintenance_page/) subdirectory.
 
 If `calc-maintenance` is not running or has not been deployed yet:
 
@@ -230,11 +205,12 @@ cf unmap-route calc-maintenance
 Logs in cloud.gov-deployed applications are generally viewable by running
 `cf logs <APP_NAME> --recent`.
 
-Note that the web application and the `rq` worker application have separate
-logs, so you will need to look at each individually.
+Note that the web application and the worker applications have separate logs, so you will need to look at each individually.
 
 If more detailed log analysis is needed, Kibana can be used to generate
-a variety of visualizations and dashboards. For more details, see the
+a variety of visualizations and dashboards at
+[https://logs.fr.cloud.gov](https://logs.fr.cloud.gov). For more details,
+see the
 [cloud.gov Logs documentation](https://cloud.gov/docs/apps/logs/).
 
 ### Initial superuser
@@ -255,20 +231,15 @@ source /home/vcap/app/.profile.d/python.sh
 
 ### Testing production deployments
 
-Because reverse proxies like CloudFront can be misconfigured to prevent
-CALC from working properly, we've built a test suite that can be used to
-remotely test a production deployment of CALC. To use it, run:
+Because reverse proxies like CloudFront can be misconfigured to prevent CALC from working properly, we've built a test suite that can be used to remotely test a production deployment of CALC. To use it, run:
 
-```
-py.test production_tests
+```sh
+docker-compose run app py.test production_tests
 ```
 
-By default, the suite tests against calc.gsa.gov. If you'd like to
-test it against a different URL, you can do so with the `--origin`
-command-line option.
+By default, the suite tests against `calc.gsa.gov`. If you'd like to test it against a different URL, you can do so with the `--origin` command-line option.
 
+[service account]: https://cloud.gov/docs/services/cloud-gov-service-account/
 [UPS]: https://docs.cloudfoundry.org/devguide/services/user-provided.html
 [IPS]: https://cloud.gov/docs/services/cloud-gov-identity-provider/
 [`README.md`]: https://github.com/18F/calc#readme
-[api.data.gov User Manual]: https://github.com/18F/api.data.gov/wiki/User-Manual:-Agencies
-[Securing your API backend]: https://github.com/18F/api.data.gov/wiki/User-Manual:-Agencies#securing-your-api-backend

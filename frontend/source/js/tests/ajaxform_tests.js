@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* global QUnit $ test document window QUNIT_FIXTURE_DATA */
 
 import { parse as urlParse } from 'url';
@@ -56,8 +57,8 @@ function makeFormHtml(extraOptions) {
   $form.find(`input[name="a_radio"][value="${options.aRadioSelectedValue}"]`)
     .attr('checked', true);
 
-  const checkboxValues = Array.isArray(options.someCheckboxesValues) ?
-    options.someCheckboxesValues : [options.someCheckboxesValues];
+  const checkboxValues = Array.isArray(options.someCheckboxesValues)
+    ? options.someCheckboxesValues : [options.someCheckboxesValues];
 
   // Same as above for setting the `checked` attributes of the selected
   // checkbox values
@@ -181,8 +182,8 @@ advancedTest('upgraded form has falsy .isDegraded', (assert, s) => {
   assert.ok(!s.ajaxform.isDegraded);
 });
 
-advancedTest('custom submit btn info only included when ' +
-             'in active focus', (assert, s) => {
+advancedTest('custom submit btn info only included when '
+             + 'in active focus', (assert, s) => {
   $(s.ajaxform).on('submit', () => {
     const formData = server.requests[0].requestBody;
 

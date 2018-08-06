@@ -15,7 +15,9 @@ export function ExportData({ querystring }) {
       className="usa-button usa-button-primary export-data"
       title="Click to export your search results to an Excel file (CSV)"
       href={href}
-    >⬇ Export data (CSV)</a>
+    >
+⬇ Export data (CSV)
+    </a>
   );
 }
 

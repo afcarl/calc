@@ -7,6 +7,45 @@ to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased][unreleased]
 
+## [2.10.0][] - 2018-07-23
+
+### Added
+- Made it possible for data administrators to edit and add schedule names, descriptions, and SIN numbers, by centralizing schedule metadata in an API call (#2018).
+- Added OpenGraph metadata tags (#2033).
+- Added progressive enhancement to HTML5 form validation, allowing a standard error alert design (#2021).
+
+### Changed
+- Updated deployment docs (#2016) and styleguide docs (#2008).
+- Updated styling for data capture stepper widget (#2015).
+- Updated the visual design of the results table (#2027).
+- Updated the visual design of alerts (#2017).
+- Upgraded the version of `document-register-element` used by our web components (#2006).
+- Updated the version of ESLint (#2048).
+- Updated the version of gulp (#2044).
+
+
+## [2.9.1][] - 2018-06-15
+
+### Added
+
+- Added developer documentation for linting, type checking, and editor
+  integration (#1992).
+- Added title to search page (#1988).
+
+### Changed
+
+- The `load_api_data` management command now updates search indices
+  properly (#1987).
+- Updated `django-uswds-forms` version and made it installable from
+  PyPI (#1999).
+- Fixed a bug in the way IE 11 reports certain events to Google
+  Analytics (#2007).
+
+### Removed
+
+- CALC no longer has a `staging` deployment (#1795).
+
+
 ## [2.9.0][] - 2018-05-31
 
 ### Added
@@ -421,7 +460,9 @@ to [Semantic Versioning](http://semver.org/).
 - refining header wording
 - replace drop down for education with multi select
 
-[unreleased]: https://github.com/18F/calc/compare/v2.9.0...HEAD
+[unreleased]: https://github.com/18F/calc/compare/v2.10.0...HEAD
+[2.10.0]: https://github.com/18F/calc/compare/v2.9.1...v2.10.0
+[2.9.1]: https://github.com/18F/calc/compare/v2.9.0...v2.9.1
 [2.9.0]: https://github.com/18F/calc/compare/v2.8.6...v2.9.0
 [2.8.6]: https://github.com/18F/calc/compare/v2.8.5...v2.8.6
 [2.8.5]: https://github.com/18F/calc/compare/v2.8.4...v2.8.5

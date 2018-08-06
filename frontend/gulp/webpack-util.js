@@ -7,12 +7,11 @@ const { ReactLoadablePlugin } = require('react-loadable/webpack');
 
 const USE_POLLING = 'USE_POLLING' in process.env;
 
-exports.scriptSources = ({ bundles, rootDir }) =>
-  Object.keys(bundles).map((name) => {
-    const options = bundles[name];
-    const dirName = options.dirName || name;
-    return path.join(rootDir, dirName, 'index.js');
-  });
+exports.scriptSources = ({ bundles, rootDir }) => Object.keys(bundles).map((name) => {
+  const options = bundles[name];
+  const dirName = options.dirName || name;
+  return path.join(rootDir, dirName, 'index.js');
+});
 
 exports.getLastFolderName = (file) => {
   // All of our bundle entry files are of the form  "/some/path/index.js".

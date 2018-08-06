@@ -1,7 +1,8 @@
 {% extends "base.html" %}
-{% load staticfiles %}
+{% load staticfiles data_explorer_tags %}
 
-{% block head %}
+{% block head_meta %}
+  {% head_meta title="About CALC" description="About CALC, the Contract-Awarded Labor Category tool" %}
 {% endblock %}
 
 {% block body_class %}content--sidebar{% endblock %}
@@ -42,35 +43,10 @@
       <h2 id="schedules">What are these schedules?</h2>
       <p>Visit <a href="http://www.gsa.gov/portal/category/100611">GSA's website</a> to learn more about the Multiple Award Schedules (MAS).</p>
 
-      <p class="schedule">874 (formerly known as Mission Oriented Business Integrated Services (MOBIS))</p>
-      <p>MOBIS provides management and consulting services, including facilitation, surveys, competetive sourcing and project management</p>
-
-      <p class="schedule">899 (formerly known as Environmental)</p>
-      <p>Provides services in environmental management, electronics stewardship, pollution prevention cleanup and restoration, HAZMAT, and training.</p>
-
-      <p class="schedule">87405 (formerly known as Logistics Worldwide (LOGWORLD))</p>
-      <p>Provides services (including deployment of supplies, equipment, materials and personnel) in the areas of planning acquisition and management of logistics system, expert advice, assistance, guidance, management, and operational support services.  Various types of training are also available.</p>
-
-      <p class="schedule">871 (formerly known as Professional Engineering Schedule)</p>
-      <p>Covers engineering disciplines, including mechanical, electrical, chemical, civil, software, aerospace, nuclear, bio, fire protection, and marine.</p>
-
-      <p class="schedule">73802 (formerly known as Language)</p>
-      <p>Provides a range of services, from basic transcribing to advance analytical consulting. Sign language and training are also offered.</p>
-
-      <p class="schedule">541 (formerly known as Advertising and Integrated Marketing Schedules (AIMS))</p>
-      <p>AIMS provides advertising, marketing and related communications fields, including web & graphic design, direct mail campaigns, etc.<br />
-      <i>Note: AIMS is newly added so available results in CALC is currently limited.</i></p>
-
-      <p class="schedule">520 (formerly known as Finance and Business Solutions (FABS))</p>
-      <p>Includes services for asset management, financial management, auditing, business information, program management and grant management.<br />
-      <i>Note: FABS is newly added so available results in CALC is currently limited.</i></p>
-
-      <p class="schedule">The Consolidated Schedule</p>
-      <p>Covers contracts awarded to a single company for services that cover multiple schedules.</p>
-
-      <p class="schedule">132 (Schedule 70)</p>
-      <p>IT Schedule 70 offers federal, state and local governments innovative solutions to their information technology needs.<br />
-      <i>Note: IT Schedule 70 is newly added so available results in CALC is currently limited.</i></p>
+      {% for schedule in schedules %}
+      <p class="schedule">{{ schedule.full_name }}</p>
+      {{ schedule.description_html }}
+      {% endfor %}
     </div><!--content-->
 
     {% block sidebar %}

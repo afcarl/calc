@@ -21,9 +21,9 @@ table {
   tbody {
     tr {
       &:nth-child(odd) {
-        background: #f9f9f9;
+        background: $color-gray-lightest;
         td.sorted {
-          background: #f0f0f0;
+          background: $color-gray-lighter;
         }
       }
     }
@@ -54,14 +54,16 @@ table {
       th {
         position: relative;
         vertical-align: top;
-        color: $color-gray;
-        border-bottom: 2px solid;
-        border-top: 2px solid;
+        color: $color-blue;
+        border-bottom: 2px solid $color-gray-medium;
+        border-top: 2px solid $color-gray-medium;
         &.sortable {
-          text-decoration: underline;
+          text-decoration: none;
           cursor: pointer;
-          padding-right: 1.5em;
           padding-bottom: 1.3em;
+          &:hover {
+            text-decoration: underline;
+          }
           &:after {
             display: inline-block;
             line-height: 1em;
@@ -69,7 +71,6 @@ table {
             position: absolute;
             padding-right: 0;
             margin-top: -.5em;
-            margin-right: .25em;
             font-weight: normal;
             font-size: .9em;
           }
@@ -78,8 +79,8 @@ table {
           text-align: right;
         }
         &.sorted {
-          color: $color-black;
-          background: #f8f8f8;
+          color: $color-gray-dark;
+          background: $color-gray-lightest;
           position: relative;
           &:after {
             content: "▲";
@@ -100,12 +101,13 @@ table {
     tbody {
       tr {
         &:hover > * {
-          background: $color-gold-lightest !important;
+          background: $color-green-lightest !important;
         }
       }
     }
   }
 }
+
 .price-list-table {
   td,
   td:first-child,
@@ -134,13 +136,13 @@ table {
   th:first-child,
   th:last-child {
     position: relative;
-    padding: $space-2x $space-1x;
+    padding: $space-2x $space-2x;
     vertical-align: top;
   }
 }
 
 td.sorted {
-  background: #fafafa;
+  background: $color-gray-lightest;
 }
 
 /* used on price list upload error page */
@@ -296,7 +298,9 @@ td.number {
 /* Some labor categories (especially the "interpreter" categories)
  * are incredibly long, so we should limit the width. */
 th.column-labor_category {
+  font-weight: $font-weight-bold;
   word-wrap: break-word;
+  padding-left: 0;
   overflow-wrap: break-word;
   max-width: 22rem;
 }

@@ -5,8 +5,9 @@
 
 @keyframes step-fade-in {
   to {
-    background-color: $color-blue-dark;
-    color: $color-white;
+    background-color: $color-green-light;
+    color: $color-base;
+    border-color: $color-green-light;
   }
 }
 
@@ -16,8 +17,8 @@
     animation-delay: 0.25s;
     animation-name: step-fade-in;
     animation-fill-mode: forwards;
-    background-color: $color-white;
-    color: $color-blue-dark;
+    background-color: $color-gray-light;
+    color: $color-base;
   }
 }
 
@@ -27,13 +28,12 @@
     margin-top: 0.2rem;
     font-size: 1.4rem;
     line-height: 1.2;
-    color: $color-blue-dark;
+    color: $color-gray-dark;
     font-weight: $font-weight-bold;
   }
 }
 
 ol.steps {
-  /*max-width: 200px;*/
   counter-reset: li;
   font-weight: 300;
   padding: 0;
@@ -49,25 +49,25 @@ ol.steps {
 
   li {
     list-style: none;
-    border-top: 2px solid $color-blue-dark;
+    border-top: 3px solid $color-gray-lighter;
     padding-top: 14px;
     position: relative;
     float: left;
-    width: 46px; // width of :before psuedoclass + $space-3x (22px + 24px)
+    width: 38px; // width of :before psuedoclass + margin (26 + 12px)
 
     &:before {
       content: counter(li);
       counter-increment: li;
-      width: 2.2rem;
-      height: 2.2rem;
-      padding: 0;
+      width: 2.6rem;
+      height: 2.6rem;
+      padding-top: .1rem;
       position: absolute;
-      top: -12px;
+      top: -15px;
       left: 0px;
-      background-color: $color-blue-dark;
-      color: $color-white;
+      background-color: $color-gray-lighter;
+      color: $color-gray-dark;
       border-radius: 30px;
-      border: 2px solid $color-blue-dark;
+      border: 3px solid $color-gray-lighter;
       text-align: center;
       font-size: 80%;
       font-weight: 700;
@@ -75,7 +75,7 @@ ol.steps {
 
     &.current ~ li::before {
       background-color: $color-white;
-      color: $color-blue-dark;
+      color: $color-gray-dark;
     }
 
     &:last-child {

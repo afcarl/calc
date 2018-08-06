@@ -7,7 +7,13 @@ import makeSetup from './testSetup';
 
 // We need this to avoid a validateDOMNesting warning.
 const createDataCell = (Component, props) => (
-  <table><tbody><tr><Component {...props} /></tr></tbody></table>
+  <table>
+    <tbody>
+      <tr>
+        <Component {...props} />
+      </tr>
+    </tbody>
+  </table>
 );
 
 const makeDataCellSetup = (column, defaultProps) => makeSetup(

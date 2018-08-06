@@ -1,6 +1,7 @@
 <form enctype="multipart/form-data" method="post"
       is="ajax-form"
-      action="{% url 'data_capture:replace_step_1' id=price_list.pk %}">
+      action="{% url 'data_capture:replace_step_1' id=price_list.pk %}"
+      class="form--contract_details">
 
   {% csrf_token %}
 

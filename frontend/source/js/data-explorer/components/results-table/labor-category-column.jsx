@@ -7,7 +7,7 @@ const column = createSortableColumn({
   title: 'Labor category',
 });
 
-export const HeaderCell = column.HeaderCell;
+export const { HeaderCell } = column;
 
 export const DataCell = column.connectDataCell(
   ({ className, value }) => (

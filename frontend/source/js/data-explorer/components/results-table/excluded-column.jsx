@@ -25,8 +25,9 @@ function BaseDataCell({ excludeRow, result }) {
   return (
     <td className="cell column-exclude">
       <Tooltip text={tooltip}>
-        <a
-          className="exclude-row" href=""
+        <a /* eslint-disable-line jsx-a11y/anchor-is-valid */
+          className="exclude-row"
+          href=""
           onClick={handleExcludeRow(result.id)}
           aria-label={tooltip}
         >

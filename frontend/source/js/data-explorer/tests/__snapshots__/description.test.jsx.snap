@@ -32,9 +32,11 @@ exports[`<Description> matches snapshot 1`] = `
       label="experience"
     >
       5
-       - 
+       
+      -
       10
-       years
+       
+      years
     </DescriptionFilter>
     <DescriptionFilter
       extraClassName={null}

@@ -13,10 +13,14 @@ export function BusinessSize({ idPrefix, size, setSize }) {
 
   return (
     <div className="filter filter-business_size">
-      <label htmlFor={id}>Business size:</label>
+      <label htmlFor={id}>
+Business size:
+      </label>
       <select
-        id={id} name="business_size"
-        value={size} onChange={handleChange}
+        id={id}
+        name="business_size"
+        value={size}
+        onChange={handleChange}
         className={filterActive(size !== '')}
       >
         {makeOptions(BUSINESS_SIZE_LABELS)}

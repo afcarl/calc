@@ -17,6 +17,10 @@ class StyleguideTests(TestCase):
         response = self.client.get('/styleguide/')
         self.assertEqual(response.status_code, 200)
 
+    def test_styleguide_docs_returns_200(self):
+        response = self.client.get('/styleguide/docs/')
+        self.assertContains(response, 'Style Guide Documentation')
+
     def test_styleguide_ajaxform_returns_200(self):
         response = self.client.get('/styleguide/ajaxform')
         self.assertEqual(response.status_code, 200)

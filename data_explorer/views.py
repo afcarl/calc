@@ -3,10 +3,13 @@ from django.shortcuts import render
 from django.utils.safestring import mark_safe
 from django.utils.crypto import get_random_string
 
+from contracts.models import ScheduleMetadata
+
 
 def about(request):
     return render(request, 'about.html', {
-        'current_selected_tab': 'about'
+        'current_selected_tab': 'about',
+        'schedules': ScheduleMetadata.objects.all().order_by('sin'),
     })
 
 

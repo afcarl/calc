@@ -22,7 +22,7 @@ if (typeof window.CustomEvent !== 'function') {
 
     const evt = document.createEvent('CustomEvent');
     evt.initCustomEvent(event, params.bubbles, params.cancelable,
-                        params.detail);
+      params.detail);
     return evt;
   };
 

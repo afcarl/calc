@@ -1,0 +1,255 @@
+{% extends "styleguide_base.html" %}
+{% load styleguide %}
+
+{% block styleguide_body %}
+
+  {% guide %}
+  <div class="sidenav-layout__content">
+  <div class="card">
+  <div class="content">
+  <h1>CALC Style Guide Documentation</h1>
+
+  <p>
+    Welcome to the CALC Style Guide Documentation! Here you'll find guidelines
+    on how to update and add new content to the
+    <a href="{% url 'styleguide:index' %}">CALC Style Guide</a>.
+  </p>
+
+  {% guide_section "Overview" %}
+  <p>
+    The style guide is a Django app in the {% pathname "styleguide" %} directory. The
+    bulk of its textual content is in {% pathname "styleguide/templates/styleguide.html" %},
+    which is a standard Django template.
+  </p>
+
+  <p>
+    Supporting the style guide is the {% template_tag_library "styleguide" %} template tag
+    library, which provides some of the technical infrastructure to display the
+    guide and ensure its content is accurate.
+  </p>
+
+  {% guide_section "Verified source code links" %}
+
+  <p>
+    Providing direct links to source files on GitHub is a great way to
+    familiarize newcomers with the codebase and figure out where all
+    the code related to a particular piece of front-end technology is
+    located.
+  </p>
+
+  <p>
+    The {% template_tag "styleguide" "pathname" %} template tag
+    is useful for linking to any CALC source file or directory relative to
+    the root of the repository. The relative path is displayed along with a
+    hyperlink to view the file or directory on GitHub.
+  </p>
+
+  <p>
+    At render time, the existence of the file or directory is
+    also verified and an exception is thrown if it doesn't
+    exist, to prevent documentation rot.
+  </p>
+
+  {% template_example %}
+  See {% pathname "README.md" %} for some basic info.
+  {% endtemplate_example %}
+
+  <p>
+    More specialized template tags are available for linking to specific
+    types of source files.
+  </p>
+
+  <h4>SASS</h4>
+
+  <p>
+    You can link to SASS relative to the root of CALC's SASS directory in
+    {% pathname SCSS_DIR %}:
+  </p>
+
+  {% template_example %}
+  See {% scss "base/_debug.scss" %} for some debug-specific SASS.
+  {% endtemplate_example %}
+
+  <h4>JavaScript</h4>
+
+  <p>
+    You can link to JS relative to the root of CALC's JS directory in
+    {% pathname JS_DIR %}:
+  </p>
+
+  {% template_example %}
+  See {% js "common/ga.js" %} for Google Analytics stuff.
+  {% endtemplate_example %}
+
+  <h4>Web components</h4>
+
+  <p>
+    The {% template_tag 'styleguide' 'webcomponent' %} tag can be used to
+    link to the source code for a web component (also known
+    as a custom element).
+  </p>
+
+  {% template_example %}
+  We use an {% webcomponent '<upload-widget>' %} with a nested
+  {% webcomponent '<input is="upload-input">' %} to
+  progressively enhance the front end.
+  {% endtemplate_example %}
+
+  <p>
+    Determining the source file of a web component is actually
+    non-trivial, and a <code>SOURCE_FILENAME</code> property
+    needs to be defined on the prototype of every web component
+    mentioned in the style guide, or else an alert will be displayed.
+  </p>
+
+  <p>
+    Under the hood, this is accomplished via the
+    {% webcomponent '<a is="web-component-link">' %} component. See
+    its source code for more guidance on how to define the
+    <code>SOURCE_FILENAME</code> property on your custom elements.
+  </p>
+
+  <h4>Python objects</h4>
+
+  <p>
+    You can link to the source code of any Python object, too:
+  </p>
+
+  {% template_example %}
+  See {% pyobjname 'styleguide.views.docs' %} for this
+  page's Django view.
+  {% endtemplate_example %}
+
+  <h4>Django templates</h4>
+
+  <p>
+    You can also link to a template via its template path:
+  </p>
+
+  {% template_example %}
+  See our admin overrides at {% template_link "admin/base.html" %}.
+  {% endtemplate_example %}
+
+  <p>
+    You can also render just the GitHub URL for the template source
+    with the {% template_tag 'styleguide' 'template_url' %} tag.
+  </p>
+
+  <h4>Template tags</h4>
+
+  <p>
+    You can link to the source code for
+    <a href="https://docs.djangoproject.com/en/1.11/howto/custom-template-tags/">custom template tags</a>
+    via {% template_tag 'styleguide' 'template_tag' %}, and
+    tag libraries via
+    {% template_tag 'styleguide' 'template_tag_library' %}:
+  </p>
+
+  {% template_example %}
+  The {% template_tag 'styleguide' 'template_tag' %} tag from
+  the {% template_tag_library 'styleguide' %} library is nice.
+  {% endtemplate_example %}
+
+  {% guide_section "Example areas" %}
+
+  <p>
+    The {% template_tag "styleguide" "example" %} tag can be used
+    to provide inline example areas with their HTML source code
+    displayed:
+  </p>
+
+  {% template_example %}
+  {% example %}
+  <p>CALC's about page URL is at {% url 'about' %}.</p>
+  {% endexample %}
+  {% endtemplate_example %}
+
+  <p>
+    It's important to note that the code snippet shown is the
+    the example's source <em>after</em> it's been processed by the templating
+    engine. If you instead want the original, "raw" source
+    to be shown in the code snippet, you can use the
+    {% template_tag "styleguide" "template_example" %} tag:
+  </p>
+
+  {% template_example %}
+  {% template_example %}
+  <p>CALC's about page URL is at {% url 'about' %}.</p>
+  {% endtemplate_example %}
+  {% endtemplate_example %}
+
+  <h4>Full-page examples</h4>
+
+  <p>
+    It's sometimes useful to have example areas
+    be contained in their own iframes that can be popped-out into
+    separate browser tabs for further inspection. This can be done
+    using the {% template_tag "styleguide" "fullpage_example" %} tag.
+  </p>
+
+  <p>
+    To use this tag, you'll need to make a template in the
+    {% pathname "styleguide/templates/styleguide_fullpage_examples" %}
+    directory.
+  </p>
+
+  <p>
+    For example, suppose we've created a simple template at
+    {% template_link inception_path %}
+    with the following content:
+  </p>
+
+  <pre><code class="language-django">{{ inception_source }}</code></pre>
+
+  <p>
+    Note the presence of
+    <code>{% templatetag opencomment %}&nbsp;BEGIN SNIPPET&nbsp;{% templatetag closecomment %}</code>
+    and
+    <code>{% templatetag opencomment %}&nbsp;END SNIPPET&nbsp;{% templatetag closecomment %}</code>:
+    these aren't just comments, they actually specify what
+    should be shown in the source code area of the example. This allows us
+    to easily omit code that's necessary for the rendering of
+    the template, but extraneous to the concept being communicated.
+  </p>
+
+  <p>
+    We can embed the template as a full-page example area by passing
+    the name of the template without its file extension:
+  </p>
+
+  {% template_example %}
+  {% fullpage_example "inception" %}
+  {% endtemplate_example %}
+
+  <p>
+    Sometimes we may not want to show any source code in the example, which
+    can be accomplished by passing an extra argument to the tag:
+  </p>
+
+  {% template_example %}
+  {% fullpage_example "inception" show_html=False %}
+  {% endtemplate_example %}
+
+  {% guide_section "Sections" %}
+
+  <p>
+    The {% template_tag "styleguide" "guide" %} tag can be used to create
+    a table of contents (TOC). Between its start and end tags,
+    {% template_tag "styleguide" "guide_section" %} can be used to
+    add individual sections, which are linked from the TOC.
+  </p>
+
+  {% fullpage_example "guide" %}
+
+  <p>
+    Currently, the TOC is flat rather than hierarchical: 
+    there's no way to define subsections of sections. You can manually
+    create subsections by using the <code>&lt;h4&gt;</code> tag,
+    but these won't be listed in the TOC.
+  </p>
+
+  {% endguide %}
+</div><!--content-->
+</div><!--card-->
+</div><!--sidenav-layout__content-->
+{% endblock %}

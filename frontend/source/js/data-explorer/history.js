@@ -48,7 +48,8 @@ export default class StoreHistorySynchronizer {
 
   reflectToStore(store) {
     const qsFields = parseQueryString(
-      this.window.location.search.substring(1)); // substring after '?' char
+      this.window.location.search.substring(1)
+    ); // substring after '?' char
 
     const state = store.getState();
     const changes = {};

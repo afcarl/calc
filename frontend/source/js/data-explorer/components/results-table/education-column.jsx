@@ -8,7 +8,7 @@ const column = createSortableColumn({
   description: 'Minimum years of education',
 });
 
-export const HeaderCell = column.HeaderCell;
+export const { HeaderCell } = column;
 
 export const DataCell = column.connectDataCell(
   ({ className, value }) => (

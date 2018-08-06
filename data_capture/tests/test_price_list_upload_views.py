@@ -159,8 +159,11 @@ class Step1Tests(PriceListStepTestCase, HandleCancelMixin):
         self.assertEqual(res.status_code, 200)
         self.assertContains(res, 'A price list with this contract number has '
                                  'already been submitted.')
-        self.assertContains(res, 'We found an existing price list for '
-                                 'contract number gs-boop.')
+        self.assertContains(res, 'We found an <a href=')
+        self.assertContains(
+            res,
+            'existing price list</a> for contract number gs-boop.'
+        )
 
     def test_duplicate_contract_post_message_contract_num_is_escaped(self):
         mommy.make(SubmittedPriceList,
@@ -170,8 +173,11 @@ class Step1Tests(PriceListStepTestCase, HandleCancelMixin):
             'schedule': FAKE_SCHEDULE,
             'contract_number': '<boop>'})
         self.assertEqual(res.status_code, 200)
-        self.assertContains(res, 'We found an existing price list for '
-                                 'contract number &lt;boop&gt;.')
+        self.assertContains(res, 'We found an <a href=')
+        self.assertContains(
+            res,
+            'existing price list</a> for contract number &lt;boop&gt;.'
+        )
 
 
 class Step2Tests(PriceListStepTestCase, HandleCancelMixin):

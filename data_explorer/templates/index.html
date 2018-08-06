@@ -2,21 +2,20 @@
 {% load staticfiles %}
 
 {% block head %}
+  <link rel="stylesheet" href="{% static 'frontend/built/style/data_explorer.min.css' %}">
 
-<link rel="stylesheet" href="{% static 'frontend/built/style/data_explorer.min.css' %}">
+  <!--[if IE 9]>
+    <script src="{% static 'frontend/js/vendor/vex.combined.min.js' %}"></script>
+    <script {{ csp_nonce }}>vex.defaultOptions.className = 'vex-theme-default';</script>
+    <link rel="stylesheet" href="{% static 'frontend/style/vendor/vex.css' %}" />
+    <link rel="stylesheet" href="{% static 'frontend/style/vendor/vex-theme-default.css' %}" />
+  <![endif]-->
 
-<!--[if IE 9]>
-  <script src="{% static 'frontend/js/vendor/vex.combined.min.js' %}"></script>
-  <script {{ csp_nonce }}>vex.defaultOptions.className = 'vex-theme-default';</script>
-  <link rel="stylesheet" href="{% static 'frontend/style/vendor/vex.css' %}" />
-  <link rel="stylesheet" href="{% static 'frontend/style/vendor/vex-theme-default.css' %}" />
-<![endif]-->
-
-<![if gt IE 8]>
-  {# For the list of files included in this built script, see gulpfile.js #}
-  <script src= "{% static 'frontend/built/js/data-explorer.vendor.js' %}"></script>
-  <script src= "{% static 'frontend/built/js/data-explorer.js' %}"></script>
-<![endif]>
+  <![if gt IE 8]>
+    {# For the list of files included in this built script, see gulpfile.js #}
+    <script src= "{% static 'frontend/built/js/data-explorer.vendor.js' %}"></script>
+    <script src= "{% static 'frontend/built/js/data-explorer.js' %}"></script>
+  <![endif]>
 {% endblock head %}
 
 {% block header_extension %}

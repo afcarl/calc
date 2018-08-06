@@ -1,14 +1,19 @@
 {% extends 'data_capture/base.html' %}
-{% load data_capture %}
+{% load data_capture data_explorer_tags %}
 
-{% block title %}Add price data to CALC / {{ step.description|capfirst }}: {% block subtitle %}{% endblock %}{% endblock %}
+{% block head_meta %}
+  {% capture as title %}
+    Add price data to CALC / {{ step.description|capfirst }}
+  {% endcapture %}
+  {% head_meta title=title %}
+{% endblock %}
 
 {% block body %}
   <div class="card">
     <div class="content">
       {% if replay %}
         <div class="usa-alert usa-alert-warning" role="alert">
-          <h3>This is a replay!</h3>
+          <h4>This is a replay!</h4>
 
           <p>You are replaying <a href="{% url 'admin:data_capture_attemptedpricelistsubmission_change' replay.id %}">price list submission attempt #{{ replay.id }}</a>.</p>
 

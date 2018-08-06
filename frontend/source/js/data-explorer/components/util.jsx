@@ -6,7 +6,9 @@ export function makeOptions(labels) {
   ].concat(Object.keys(labels).map(
     value => ({ value, label: labels[value] }),
   )).map(({ value, label }) => (
-    <option key={value} value={value}>{label}</option>
+    <option key={value} value={value}>
+      {label}
+    </option>
   ));
 }
 

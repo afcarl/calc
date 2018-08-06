@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* global $ QUnit document window */
 
 import {
@@ -63,8 +64,8 @@ class FakeWindow {
   }
 
   getScrollTop() {
-    if (this.document.body.scrollTop !==
-        this.document.documentElement.scrollTop) {
+    if (this.document.body.scrollTop
+        !== this.document.documentElement.scrollTop) {
       // These need to be the same because some browsers use
       // the <body>'s scrollTop to control scrolling, while others use
       // the <html>'s scrollTop.
@@ -144,9 +145,8 @@ test('amsr does not set scrollTop if last value was corrupt', (assert) => {
 
 test('activate() works', (assert) => {
   const iframe = document.createElement('iframe');
-  const getScrollTop = () =>
-    $('body', iframe.contentDocument).scrollTop() ||
-    $('html', iframe.contentDocument).scrollTop();
+  const getScrollTop = () => $('body', iframe.contentDocument).scrollTop()
+    || $('html', iframe.contentDocument).scrollTop();
 
   $(iframe).appendTo('body').css({
     height: '50px',

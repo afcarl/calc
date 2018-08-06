@@ -19,4 +19,3 @@ const OptionalFilters = () => (
 );
 
 export default OptionalFilters;
-

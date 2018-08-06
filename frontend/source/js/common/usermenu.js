@@ -47,7 +47,7 @@ const toggleMenu = (isOpen) => {
 function enableUsermenu() {
   const menu = document.querySelector('#usermenu');
   const trigger = document.querySelector('#usermenu .usermenu-trigger');
-  const body = document.body;
+  const { body } = document;
 
   if (!menu || !trigger) { return; }
 

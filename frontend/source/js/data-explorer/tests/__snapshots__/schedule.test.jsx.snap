@@ -7,7 +7,7 @@ exports[`<Schedule> matches snapshot 1`] = `
   <label
     htmlFor="zzz_schedule"
   >
-    SIN / Schedule:
+    Contract vehicle:
   </label>
   <a
     className="filter-more-info"

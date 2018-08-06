@@ -6,8 +6,12 @@ legend {
   font-size: $base-font-size;
 }
 
-input[type="radio"] + label {
+input[type="radio"] + label,
+input[type="checkbox"] + label {
   margin-top: 0;
+  &:before {
+    margin-right: 1rem;
+  }
 }
 
 input[type="radio"]:focus + label::before,

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* global event */
 
 import * as querystring from 'querystring';
@@ -51,7 +52,7 @@ export function templatize(str, undef) {
 export function parsePrice(value, defaultValue = 0) {
   let floatValue = parseFloat(value);
 
-  if (isNaN(floatValue) || floatValue < 0) {
+  if (isNaN(floatValue) || floatValue < 0) { /* eslint-disable-line no-restricted-globals */
     floatValue = defaultValue;
   }
 
@@ -80,7 +81,7 @@ export function parseQueryString(str) {
   Object.keys(qsObj).forEach((key) => {
     const val = qsObj[key];
     if (Array.isArray(val)) {
-      qsObj[key] = val[0];
+      qsObj[key] = val[0]; /* eslint-disable-line prefer-destructuring */
     }
   });
 

@@ -1,8 +1,17 @@
 {% extends 'data_capture/step.html' %}
+
+{% load data_explorer_tags %}
+
+{% block head_meta %}
+  {% capture as title strip %}
+    {{ step.description|capfirst }}: Upload price list
+  {% endcapture %}
+  {% head_meta title=title %}
+{% endblock %}
+
 {% block body_class %}content--skinny{% endblock %}
 {% block main_class %}secondary-step card--collapse-header{% endblock %}
 
-{% block subtitle %}Upload price list{% endblock %}
 {% block step_heading %}
   <h2>Upload awarded price list</h2>
 {% endblock %}
@@ -14,7 +23,7 @@
   {% include 'data_capture/price_list/upload_form.html' %}
 {% endblock %}
 {% block card_footer %}
-  <form method="post">
+  <form method="post" class="form--contract_details">
     {% csrf_token %}
     <button type="submit" class="usa-button usa-button-link" name="cancel" data-a11y-dialog-show="cancel-dialog" formnovalidate>Cancel this upload</button>
   </form>

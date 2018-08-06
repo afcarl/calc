@@ -13,9 +13,14 @@ export function Site({ idPrefix, site, setSite }) {
 
   return (
     <div className="filter filter-site">
-      <label htmlFor={id}>Worksite:</label>
+      <label htmlFor={id}>
+Worksite:
+      </label>
       <select
-        id={id} name="site" value={site} onChange={handleChange}
+        id={id}
+        name="site"
+        value={site}
+        onChange={handleChange}
         className={filterActive(site !== '')}
       >
         {makeOptions(SITE_LABELS)}

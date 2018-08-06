@@ -8,6 +8,7 @@ from . import (
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^docs/$', views.docs, name='docs'),
     url(r'^fullpage-example/' + fullpage_example.REGEX + '$',
         fullpage_example.view, name='fullpage_example'),
     url(r'^ajaxform$', ajaxform_example.view, name='ajaxform'),

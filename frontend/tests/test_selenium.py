@@ -2,7 +2,9 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
-from selenium.webdriver.support.ui import Select
+from selenium.webdriver.support.ui import Select, WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 
 from contracts.mommy_recipes import get_contract_recipe
 from model_mommy.recipe import seq
@@ -104,7 +106,9 @@ class DataExplorerTests(SeleniumTestCase):
         return self.driver
 
     def get_form(self):
-        return self.driver.find_element_by_id('search')
+        wait = WebDriverWait(self.driver, 10)
+        element = wait.until(EC.element_to_be_clickable((By.ID, 'search')))
+        return element
 
     def submit_form(self):
         form = self.get_form()
@@ -181,12 +185,9 @@ class DataExplorerTests(SeleniumTestCase):
         self.load('/styleguide/')
         axe.run_and_validate(self.driver)
 
-    def test_schedule_column_is_open_by_default(self):
-        get_contract_recipe().make(_quantity=5)
-        driver = self.load()
-        col_header = find_column_header(driver, 'schedule')
-
-        self.assertFalse(has_class(col_header, 'collapsed'))
+    def test_styleguide_docs_accessibility(self):
+        self.load('/styleguide/docs/')
+        axe.run_and_validate(self.driver)
 
     def test_schedule_column_is_last(self):
         get_contract_recipe().make(_quantity=5)

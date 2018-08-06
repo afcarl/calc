@@ -32,7 +32,7 @@ export function appendHighlightedTerm($el, term, searchStr) {
     } else {
       $el.append(plainText(lastIndex, result.index));
       $el.append(highlightedText(result.index, re.lastIndex));
-      lastIndex = re.lastIndex;
+      lastIndex = re.lastIndex; /* eslint-disable-line prefer-destructuring */
     }
   }
 

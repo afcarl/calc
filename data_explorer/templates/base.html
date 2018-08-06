@@ -1,22 +1,31 @@
-{% load staticfiles %}
+{% load staticfiles data_explorer_tags %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <title>CALC / {% block title %}Home{% endblock %}</title>
-    <link rel="canonical" href="{{ canonical_url }}">
-    <meta name="viewport" content="width=960">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <!--[if lte IE 9]>
-    <script src="{% static 'frontend/js/vendor/aight.v2.min.js' %}"></script>
-    <script src="{% static 'frontend/js/vendor/history.min.js' %}"></script>
-    <![endif]-->
+    {% comment %}
+      Use head_meta or title (but not both) or you'll get duplicate tags.
+      If you do use title, you need to provide the full title tag.
+      In most cases, use head_meta and let the inclusion tag sort this out for you. 
+    {% endcomment %}
+    {% block head_meta %}
+      {% head_meta %}
+    {% endblock %}
+    {% block title %}{% endblock %}
 
+    <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+
+    <!--[if lte IE 9]>
+      <script src="{% static 'frontend/js/vendor/aight.v2.min.js' %}"></script>
+      <script src="{% static 'frontend/js/vendor/history.min.js' %}"></script>
+    <![endif]-->
+    {# load jquery and other shared scripts. Should consider moving to bottom. #}
+    <script src="{% static 'frontend/built/js/common.js' %}"></script>
+    
     {% include 'analytics/ga.html' %}
     {% include 'frontend/safe_mode/script_tag.html' %}
-    {% include '_head.html' %}
-    {% block head %}
-    {% endblock %}
+
+    {% block head %}{% endblock %}
   </head>
   <body class="{% block body_class %}{% endblock %}">
     {% include '_banner.html' %}
@@ -35,12 +44,12 @@
 
     <main id="main" class="{% block main_class %}{% endblock %}">
       <div class="container">
-      {% block body %}
-      {% endblock %}
+        {% block body %}{% endblock %}
       </div>
     </main>
 
     {% block modals %}{% endblock modals %}
+
     {% block footer %}
       {% include "_footer.html" %}
     {% endblock %}

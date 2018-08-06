@@ -1,7 +1,5 @@
 /* global window, document */
 
-import 'document-register-element';
-
 const KEY_DASH = 189;
 const KEY_PERIOD = 190;
 const KEY_SLASH = 191;
@@ -14,16 +12,17 @@ class UswdsDate extends window.HTMLElement {
     for (let i = 0; i < inputs.length; i++) {
       if (useNext) {
         return inputs[i];
-      } else if (inputs[i] === currentInput) {
+      } if (inputs[i] === currentInput) {
         useNext = true;
       }
     }
 
     return null;
   }
+
   handleKeyDown(e) {
-    if (e.keyCode === KEY_DASH || e.keyCode === KEY_PERIOD ||
-        e.keyCode === KEY_SLASH) {
+    if (e.keyCode === KEY_DASH || e.keyCode === KEY_PERIOD
+        || e.keyCode === KEY_SLASH) {
       const nextInput = this._getNextInput(e.target);
 
       if (nextInput) {
@@ -32,6 +31,7 @@ class UswdsDate extends window.HTMLElement {
       }
     }
   }
+
   createdCallback() {
     this.addEventListener('keydown', this.handleKeyDown.bind(this), true);
   }

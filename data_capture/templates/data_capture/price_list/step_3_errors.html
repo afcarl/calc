@@ -8,15 +8,15 @@
 
       {% with total=rows|length %}
 
-      <div class="usa-alert usa-alert-error alert__no-bg" role="alert">
+      <div class="usa-alert usa-alert-error" role="alert">
         {% if not gleaned_data.valid_rows %}
-          <h3>No valid rows found!</h3>
+          <h4>No valid rows found!</h4>
           <p>
             Your uploaded price list contains no valid rows. Please fix the errors
             shown below in the original file and <a href="#upload">try uploading it again</a>.
           </p>
         {% else %}
-          <h3>We found errors in {{ total }} row{{ total|pluralize }} of your data</h3>
+          <h4>We found errors in {{ total }} row{{ total|pluralize }} of your data</h4>
           <p>
             The row{{ total|pluralize }} below appear{{ total|pluralize:"s," }} to be
             invalid and <strong>will be discarded</strong> when you upload your

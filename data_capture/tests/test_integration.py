@@ -67,6 +67,7 @@ class DataCaptureTests(BrowserTestCase):
         self.load('/autologin')
         self.load('/data-capture/step/1')
 
+        # This first form has no ID, and that appears to be OK
         form = self.get_form('form')
         form.set_text('contract_number', 'GS-123-4567')
         form.submit()
@@ -76,7 +77,7 @@ class DataCaptureTests(BrowserTestCase):
             'Step 2 of 5: Enter vendor details'
         )
 
-        form = self.get_form('form')
+        form = self.get_form('#vendor-contract-form')
         form.set_text('vendor_name', 'Battaglia Sausage Peddlers, Inc.')
         form.set_radio('is_small_business', 0)
         form.set_radio('contractor_site', 2)

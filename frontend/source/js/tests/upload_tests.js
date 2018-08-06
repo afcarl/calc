@@ -39,7 +39,7 @@ function mockOriginalEvent(extras) {
 
     if (options.fakeInitialFilename) {
       $('upload-widget', div).attr('data-fake-initial-filename',
-                                   options.fakeInitialFilename);
+        options.fakeInitialFilename);
     }
 
     // This will cause the attached/connected callbacks (depending on
@@ -96,9 +96,9 @@ function mockOriginalEvent(extras) {
       done();
     });
 
-    div.innerHTML = '<form style="display: none"><upload-widget>' +
-                    '<input type="file" is="upload-input">' +
-                    '</upload-widget></form>';
+    div.innerHTML = '<form style="display: none"><upload-widget>'
+                    + '<input type="file" is="upload-input">'
+                    + '</upload-widget></form>';
     document.body.appendChild(div);
   });
 

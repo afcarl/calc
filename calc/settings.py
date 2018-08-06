@@ -85,7 +85,6 @@ TEMPLATES = [{
     'APP_DIRS': True,
     'OPTIONS': {
         'context_processors': [
-            'calc.context_processors.canonical_url',
             'calc.context_processors.show_debug_ui',
             'calc.context_processors.google_analytics_tracking_id',
             'calc.context_processors.help_email',
@@ -444,6 +443,9 @@ ADMIN_REORDER = (
             'model': 'data_capture.AttemptedPriceListSubmission',
             'label': 'Replay uncompleted price list submission attempts'
         },
+    )},
+    {'app': 'contracts', 'label': 'Contracting Metadata', 'models': (
+        {'model': 'contracts.ScheduleMetadata', 'label': 'Available schedules'},
     )},
     {'app': 'auth', 'label': 'Authentication and authorization', 'models': (
         'auth.User',

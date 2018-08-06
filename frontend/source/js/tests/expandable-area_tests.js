@@ -61,7 +61,7 @@ QUnit.test('does not toggle on other keys', (assert) => {
     if (i !== 13 && i !== 32) {
       h1.onkeyup({ keyCode: i });
       assert.equal(h1.getAttribute('aria-expanded'), 'false',
-                   `does not toggle on keyCode == ${i}`);
+        `does not toggle on keyCode == ${i}`);
     }
   }
 });

@@ -1,6 +1,14 @@
 {% extends 'data_capture/step.html' %}
+ {% load data_explorer_tags %}
+
+ {% block head_meta %}
+  {% capture as title strip %}
+    {{ step.description|capfirst }}: Verify data
+  {% endcapture %}
+  {% head_meta title=title %}
+{% endblock %}
+
 {% block main_class %}secondary-step{% endblock %}
-{% block subtitle %}Verify data{% endblock %}
 
 {% block step_heading %}
 <h2>Double check and submit for review</h2>
@@ -8,7 +16,7 @@
 {% endblock %}
 
 {% block step_body %}
-<form method="post">
+<form method="post" class="form--contract_details">
   {% csrf_token %}
 
 <h3>Verify vendor and contract details</h3>
@@ -102,7 +110,7 @@
 
 {% if replay %}
 <div class="usa-alert usa-alert-warning" role="alert">
-  <h3>Remember, this is a replay!</h3>
+  <h4>Remember, this is a replay!</h4>
 
   <p>
     While we won't <em>stop</em> you from submitting this price list

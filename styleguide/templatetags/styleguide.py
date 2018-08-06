@@ -2,6 +2,8 @@ import os.path
 from html.parser import HTMLParser
 from textwrap import dedent
 from inspect import getsourcefile
+from importlib import import_module
+from pathlib import Path
 
 from django import template
 from django.conf import settings
@@ -9,6 +11,8 @@ from django.utils.safestring import SafeString
 from django.utils.module_loading import import_string
 from django.utils.html import escape
 from django.utils.text import slugify
+from django.template.backends.django import get_installed_libraries
+from django.template import Engine
 
 from styleguide import fullpage_example as _fullpage_example
 
@@ -24,6 +28,38 @@ SCSS_DIR = 'frontend/source/sass'
 JS_DIR = 'frontend/source/js'
 
 register = template.Library()
+
+
+@register.tag
+def template_example(parser, token):
+    '''
+    Render both the original source code and the rendered output
+    of the Django template code between this tag and
+    its corresponding {% endtemplate_example %}.
+    '''
+
+    first_token = parser.tokens[0]
+    nodelist = parser.parse(('endtemplate_example',))
+    last_token = parser.tokens[0]
+    parser.delete_first_token()
+    contents = parser.origin.loader.get_contents(parser.origin)
+    lines = contents.splitlines()
+    text = '\n'.join(lines[first_token.lineno:last_token.lineno - 1])
+    return TemplateExampleNode(text, nodelist)
+
+
+class TemplateExampleNode(template.Node):
+    def __init__(self, template_source, nodelist):
+        self.template_source = template_source
+        self.nodelist = nodelist
+
+    def render(self, context):
+        t = context.template.engine.get_template('styleguide_template_example.html')
+
+        return t.render(template.Context({
+            'template_rendering': self.nodelist.render(context),
+            'template_source': self.template_source,
+        }))
 
 
 @register.tag
@@ -82,10 +118,11 @@ class WebComponentHTMLParser(HTMLParser):
                 self.extends = val
 
 
-@register.simple_tag
-def template_tag_library(name):
-    from importlib import import_module
-    from django.template.backends.django import get_installed_libraries
+def get_template_tag_library_and_url(name):
+    '''
+    Return a tuple containing the Python module for the given template tag
+    library, and the GitHub URL to its source code.
+    '''
 
     libs = get_installed_libraries()
 
@@ -99,13 +136,42 @@ def template_tag_library(name):
 
     url = github_url_for_path(os.path.relpath(mod.__file__, ROOT_DIR))
 
+    return mod, url
+
+
+@register.simple_tag
+def template_tag(library, tag):
+    '''
+    Render the name of a template tag from the given template tag library,
+    hyperlinked to its source code.
+    '''
+
+    mod, url = get_template_tag_library_and_url(library)
+    func = mod.register.tags[tag]
+    while hasattr(func, '__wrapped__'):
+        func = func.__wrapped__
+    lineno = func.__code__.co_firstlineno
+
+    return SafeString(
+        f'<code><a href="{url}#L{lineno}">{{%&nbsp;{tag}&nbsp;%}}</a></code>'
+    )
+
+
+@register.simple_tag
+def template_tag_library(name):
+    '''
+    Render the name of a template tag library that is hyperlinked
+    to its source code.
+    '''
+
+    mod, url = get_template_tag_library_and_url(name)
+
     return SafeString(f'<code><a href="{url}">{name}</a></code>')
 
 
-@register.simple_tag(takes_context=True)
-def template_url(context, template_name):
+def get_template_path(template_name: str) -> Path:
     '''
-    Return a GitHub URL to the source of the given template.
+    Given a Django template path, return an absolute path to it.
     '''
 
     # Note that we can't simply use the `origin` property of a Template
@@ -115,7 +181,7 @@ def template_url(context, template_name):
 
     candidates = []
 
-    for loader in context.template.engine.template_loaders:
+    for loader in Engine.get_default().template_loaders:
         for candidate in loader.get_template_sources(template_name):
             candidates.append(candidate)
 
@@ -129,7 +195,17 @@ def template_url(context, template_name):
     if path is None:
         raise ValueError(f'Template {template_name} not found')
 
-    return github_url_for_path(os.path.relpath(path, ROOT_DIR))
+    return Path(path)
+
+
+@register.simple_tag(takes_context=True)
+def template_url(context, template_name):
+    '''
+    Return a GitHub URL to the source of the given template.
+    '''
+
+    path = get_template_path(template_name)
+    return github_url_for_path(path.relative_to(ROOT_DIR))
 
 
 @register.simple_tag(takes_context=True)
@@ -238,10 +314,15 @@ def pathname(name):
 
 @register.simple_tag(takes_context=True)
 def fullpage_example(context, name, show_html=True):
+    num_key = f'_fullpage_example_{name}'
+    num = context.get(num_key, 0) + 1
+    context[num_key] = num
+    num_str = "" if num == 1 else f"#{num}"
+
     t = context.template.engine.get_template(
         'styleguide_fullpage_example_iframe.html')
     url = _fullpage_example.get_url(name)
-    title = f"Example for {name}"
+    title = f"Example for {name}{num_str}"
     if show_html:
         html = _fullpage_example.get_html_source(name)
     else:

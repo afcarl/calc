@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* global window */
 
 import xhr from 'xhr';

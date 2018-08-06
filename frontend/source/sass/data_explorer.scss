@@ -12,9 +12,19 @@ body {
 // temp styles to mimic .card without indenting the table
 section.search,
 section.search + .graph-block,
-.help-text.columns.nine {
+.search-header.columns.nine {
   margin-right: 0;
   margin-left: $space-8x;
+}
+
+.search-header {
+  p {
+  margin-bottom: 0;
+  margin-top: 0;
+  }
+  h2 {
+    margin-top: $space-8x;
+  }
 }
 
 section.search .container {
@@ -29,7 +39,7 @@ section.search .container {
 @media only screen and (max-width: $medium-large-screen) {
   section.search,
   section.search + .graph-block,
-  .help-text.columns.nine {
+  .search-header.columns.nine {
     margin-left: $space-3x;
   }
 }
@@ -424,7 +434,7 @@ th.column-min_years_experience {  width: 10%; }
 th.column-wage {                  width:  8%; }
 th.column-idv_piid {              width: 12%; }
 th.column-vendor_name {           width: 25%; }
-th.column-schedule {              width: 10%; }
+th.column-schedule {              min-width: 145px;} /* temp fix until we combine vendor/contract # */
 
 th.column-education_level {
   color-white-space: nowrap;
@@ -434,14 +444,23 @@ td.column-idv_piid {
   color-white-space: nowrap;
 }
 
-td.column-min_years_experience .years {
-  display: none;
-  font-style: italic;
-  color: $color-gray;
+td.column-idv_piid a {
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+td.column-min_years_experience {
+  .years {
+    color: $color-gray-dark;
+    display: none;
+    font-style: italic;
+  }
 }
 
 tr:hover td.column-min_years_experience .years {
-  display: inline;
+  display: block;
 }
 
 .document-icon {
@@ -524,10 +543,16 @@ a.focus-input {
 
 #query-types {
   padding: 0 1rem;
-  label {
+  // radio buttons + labels
+  ul {
+    margin-top: $space-1x;
+  }
+  li {
     display: inline-block;
+  }
+  label {
     font-weight: normal;
-    margin: 0 1rem 0 0;
+    margin: 0 2.5rem 0 0;
     input {
       margin-right: .5rem;
     }
@@ -604,7 +629,6 @@ label.checkbox :checked + span {
 label.radio :checked + span {
   background-color: $color-blue-dark;
   color: $color-white;
-  position: relative;
 }
 
 .contract-list-item input[type="checkbox"],

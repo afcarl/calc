@@ -29,7 +29,7 @@ const YEAR_LI_INFO = {
   },
 };
 
-const TOOLTIP = 'All five years of pricing are available in the export.';
+const TOOLTIP = 'Show rates for the initial year of the contract, or for subsequent years (+1 or +2).';
 
 export function ContractYear({ idPrefix, contractYear, setContractYear }) {
   const listItem = (year) => {
@@ -40,17 +40,21 @@ export function ContractYear({ idPrefix, contractYear, setContractYear }) {
       <li className="contract-list-item">
         <label htmlFor={id} className="radio">
           <input
-            id={id} type="radio"
+            id={id}
+            type="radio"
             checked={contractYear === year}
             onChange={() => { setContractYear(year); }}
-            name="contract-year" value={year}
+            name="contract-year"
+            value={year}
             tabIndex="0"
           />
           <span
             tabIndex="-1"
             className={className}
             aria-hidden="true"
-          >{shortLabel}</span>
+          >
+            {shortLabel}
+          </span>
           <span className="usa-sr-only">
             {CONTRACT_YEAR_LABELS[year]}
           </span>
@@ -63,12 +67,15 @@ export function ContractYear({ idPrefix, contractYear, setContractYear }) {
     <div className="filter contract-year">
       <fieldset className="fieldset-inputs">
 
-        <legend>Contract year:</legend>
+        <legend>
+Contract year:
+        </legend>
 
         <span className="filter-more-info">
           <Tooltip text={TOOLTIP}>
-            <a
-              href="" aria-label={TOOLTIP}
+            <a /* eslint-disable-line jsx-a11y/anchor-is-valid */
+              href=""
+              aria-label={TOOLTIP}
               onClick={(e) => { e.preventDefault(); }}
             >
               What&apos;s this?
@@ -76,7 +83,9 @@ export function ContractYear({ idPrefix, contractYear, setContractYear }) {
           </Tooltip>
         </span>
 
-        <h3 className="usa-sr-only">Contract Year</h3>
+        <h3 className="usa-sr-only">
+Contract Year
+        </h3>
 
         <ul className="contract-year-block">
           {listItem(CONTRACT_YEAR_CURRENT)}

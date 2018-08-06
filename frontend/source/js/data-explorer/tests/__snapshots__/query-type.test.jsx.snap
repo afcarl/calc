@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<QueryType> matches snapshot 1`] = `
-<div
+<ul
   aria-label="Labor category query type"
   role="group"
 >
-  <span>
+  <li>
     <input
       checked={false}
       id="zzz_match_all"
@@ -19,8 +19,8 @@ exports[`<QueryType> matches snapshot 1`] = `
     >
       Contains words
     </label>
-  </span>
-  <span>
+  </li>
+  <li>
     <input
       checked={false}
       id="zzz_match_phrase"
@@ -34,8 +34,8 @@ exports[`<QueryType> matches snapshot 1`] = `
     >
       Contains phrase
     </label>
-  </span>
-  <span>
+  </li>
+  <li>
     <input
       checked={true}
       id="zzz_match_exact"
@@ -49,6 +49,6 @@ exports[`<QueryType> matches snapshot 1`] = `
     >
       Exact match
     </label>
-  </span>
-</div>
+  </li>
+</ul>
 `;

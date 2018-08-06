@@ -85,7 +85,7 @@ function smoothScroll(window, scrollTop, scrollMs, cb) {
  * Generate or retrieve an integer uniquely identifying this particular
  * page visit. The number will be the same if the user navigates back
  * to this page in the future.
- **/
+ * */
 export function getOrCreateVisitId(window) {
   const VISIT_ID_COUNTER = 'smoothScrollLatestVisitId';
   const VISIT_ID = 'smoothScrollVisitId';
@@ -97,7 +97,7 @@ export function getOrCreateVisitId(window) {
   const storage = window.sessionStorage;
   let latestVisitId = parseInt(storage[VISIT_ID_COUNTER], 10);
 
-  if (isNaN(latestVisitId)) {
+  if (isNaN(latestVisitId)) { /* eslint-disable-line no-restricted-globals */
     latestVisitId = 0;
   }
 
@@ -143,7 +143,7 @@ function smoothlyScrollToLocationHash(window, scrollMs) {
  * auto-scroll features that the browser normally takes care of for us,
  * such as auto-scrolling to the last known scroll position when the
  * user reloads or navigates back to our page from somewhere else.
- **/
+ * */
 export function activateManualScrollRestoration(window, scrollMs) {
   const doc = window.document;
   const storage = window.sessionStorage;
@@ -152,7 +152,7 @@ export function activateManualScrollRestoration(window, scrollMs) {
 
   window.history.scrollRestoration = 'manual';
 
-  if (isNaN(scrollTop)) {
+  if (isNaN(scrollTop)) { /* eslint-disable-line no-restricted-globals */
     smoothlyScrollToLocationHash(window, scrollMs);
   } else {
     onPageReady(window, () => {
@@ -164,8 +164,8 @@ export function activateManualScrollRestoration(window, scrollMs) {
   window.addEventListener('beforeunload', () => {
     // We can't store the position in window.history.state here because
     // this will make some browsers flicker the URL in the address bar.
-    storage[scrollKey()] = doc.documentElement.scrollTop ||
-                           doc.body.scrollTop;
+    storage[scrollKey()] = doc.documentElement.scrollTop
+                           || doc.body.scrollTop;
   }, false);
 
   return window;

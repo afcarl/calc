@@ -23,8 +23,8 @@ $(document).ready(() => {
     });
   } else if (hasAny) {
     throw new Error(
-      'Warning! Couldn\'t find edit button and/or related elements, ' +
-      'falling back to baseline behavior.',
+      'Warning! Couldn\'t find edit button and/or related elements, '
+      + 'falling back to baseline behavior.',
     );
   }
 });

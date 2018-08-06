@@ -106,6 +106,7 @@ describe('StoreRatesAutoRequester middleware', () => {
     })).toBeTruthy();
 
     expect(mockStore.dispatch.calledWith(
-      { type: START_RATES_REQUEST })).toBeTruthy();
+      { type: START_RATES_REQUEST }
+    )).toBeTruthy();
   });
 });

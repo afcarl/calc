@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# DEPLOY_ENV must be set to "dev", "staging", or "prod"
+# DEPLOY_ENV must be set to "dev" or "prod"
 
-# CF_DEV_USER, CF_STAGING_USER, CF_PROD_USER, and the associated
-# CF_DEV_PASSWORD, CF_STAGING_PASSWORD, and CF_PROD_PASSWORD
+# CF_DEV_USER, CF_PROD_USER, and the associated
+# CF_DEV_PASSWORD and CF_PROD_PASSWORD
 # are defined as private Environment Variables
 # in the CircleCI web UI: https://circleci.com/gh/18F/calc/edit#env-vars
 
@@ -13,10 +13,6 @@ if [ "$DEPLOY_ENV" == "dev" ]; then
   DEPLOY_USER=$CF_DEV_USER
   DEPLOY_PASS=$CF_DEV_PASSWORD
   SPACE=dev
-elif [ "$DEPLOY_ENV" == "staging" ]; then
-  DEPLOY_USER=$CF_STAGING_USER
-  DEPLOY_PASS=$CF_STAGING_PASSWORD
-  SPACE=staging
 elif [ "$DEPLOY_ENV" == "prod" ]; then
   DEPLOY_USER=$CF_PROD_USER
   DEPLOY_PASS=$CF_PROD_PASSWORD

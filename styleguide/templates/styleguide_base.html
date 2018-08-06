@@ -1,12 +1,14 @@
 {% extends "base.html" %}
-{% load staticfiles %}
+{% load staticfiles data_explorer_tags %}
 
-{% block title %}CALC Style Guide{% endblock %}
+{% block head_meta %}
+  {% head_meta title='Style Guide' %}
+{% endblock %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static 'frontend/built/style/data_capture.min.css' %}">
-<link rel="stylesheet" href="{% static 'frontend/built/style/styleguide.min.css' %}">
-<link rel="stylesheet" href="{% static 'styleguide/vendor/prism.css' %}">
+  <link rel="stylesheet" href="{% static 'frontend/built/style/data_capture.min.css' %}">
+  <link rel="stylesheet" href="{% static 'frontend/built/style/styleguide.min.css' %}">
+  <link rel="stylesheet" href="{% static 'styleguide/vendor/prism.css' %}">
 {% endblock %}
 
 {% block body %}

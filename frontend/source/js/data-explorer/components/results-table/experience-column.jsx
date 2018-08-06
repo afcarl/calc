@@ -8,7 +8,7 @@ const column = createSortableColumn({
   description: 'Minimum years of experience',
 });
 
-export const HeaderCell = column.HeaderCell;
+export const { HeaderCell } = column;
 
 export const DataCell = column.connectDataCell(
   ({ className, value }) => {
@@ -20,7 +20,9 @@ export const DataCell = column.connectDataCell(
 
     return (
       <td className={className}>
-        {value} {years}
+        {value} 
+        {' '}
+        {years}
       </td>
     );
   },

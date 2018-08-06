@@ -25,7 +25,9 @@ export default class EducationLevelItem extends React.Component {
           onChange={this._onClick}
           name="education"
         />
-        <label htmlFor={this.props.id}>{EDU_LABELS[this.props.value]}</label>
+        <label htmlFor={this.props.id}>
+          {EDU_LABELS[this.props.value]}
+        </label>
       </li>
     );
   }

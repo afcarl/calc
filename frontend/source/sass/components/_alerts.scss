@@ -3,21 +3,22 @@
 @import '../base/variables';
 .usa-alert {
   margin: 1rem 0;
-  padding: 1rem 6rem 1rem 2rem;
   border-radius: $border-radius;
-  background-image: none;
-  &::before {
-    width: 0;
-  }
+  background-size: 2.4rem;
+  background-position: 2rem 2.4rem;
 
-  h3 {
+  h3,
+  h4 {
     font-weight: $font-weight-bold;
     margin-top: 0;
     margin-bottom: 0;
+    margin-left: 1.8rem;
   }
 
   p {
+    margin-top: 0;
     margin-bottom: 0;
+    margin-left: 1.8rem;
   }
 
   td, th {
@@ -42,40 +43,25 @@
   }
 }
 
-.usa-alert-error {
-  border: 2px solid $color-red-dark;
-  background-color: $color-red-lightest;
-  // Used for styling paragraphs of error text where a background doesn't make visual sense.
-  &.alert__no-bg {
-    background-color: transparent;
-    border: none;
-
-    h3:before {
-      width: $h3-font-size;
-      height: $h3-font-size;
-      content: url('../../images/icon-warning.svg');
-      padding-right: $space-half;
-    }
-  }
-
-  h3 {
-    color: $color-red-dark;
-  }
-}
-
-.usa-alert-success {
-  background-color: $color-green-lightest;
-  border: 2px solid $color-green-darkest; //borders added for consistency with error style
-}
-
+.usa-alert-error,
+.usa-alert-info,
+.usa-alert-success,
 .usa-alert-warning {
-  background-color: $color-gold-lightest;
-  border: 2px solid $color-gold; //borders added for consistency with error style
+  &::before {
+    border-radius: $border-radius 0 0 $border-radius;
+  }
+}
+
+.usa-alert-error {
+  &::before {
+    background-color: $color-red-dark;
+  }
 }
 
 .usa-alert-info {
-  background-color: $color-blue-lightest;
-  border: 2px solid $color-blue-darker; //borders added for consistency with error style
+  &::before {
+    background-color: $color-blue-dark;
+  }
 }
 
 alerts-widget:focus {
@@ -98,6 +84,7 @@ alerts-widget:focus {
 // These classes are used in the Django admin. They're automatically created
 // by Django, so styling them is more straightfoward than renaming them.
 .messagelist li {
+  padding-left: 7rem !important; // to create space for the icon
   @extend .usa-alert;
   @extend .usa-alert-info;
 }

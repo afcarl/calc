@@ -82,7 +82,7 @@ export class EducationLevel extends React.Component {
 
     e.preventDefault();
     this.setState({
-      expanded: !this.state.expanded,
+      expanded: !this.state.expanded, /* eslint-disable-line react/no-access-state-in-setstate */
     });
   }
 
@@ -91,14 +91,16 @@ export class EducationLevel extends React.Component {
   }
 
   render() {
-    const levels = this.props.levels;
-    const idPrefix = this.props.idPrefix;
+    const { levels, idPrefix } = this.props;
     const inputs = Object.keys(EDU_LABELS).map((value) => {
       const id = idPrefix + value;
       return (
         <EducationLevelItem
-          key={value} id={id} checked={levels.indexOf(value) >= 0}
-          value={value} onCheckboxClick={this.handleCheckboxClick}
+          key={value}
+          id={id}
+          checked={levels.indexOf(value) >= 0}
+          value={value}
+          onCheckboxClick={this.handleCheckboxClick}
         />
       );
     });
@@ -106,17 +108,27 @@ export class EducationLevel extends React.Component {
 
     if (levels.length === 0) {
       linkContent = (
-        <span className="eduSelect">Select
-          <span className="usa-sr-only"> to reveal Education Level options</span>
+        <span className="eduSelect">
+Select
+          <span className="usa-sr-only">
+            {' '}
+to reveal Education Level options
+          </span>
         </span>
       );
     } else {
       const selectedLevels = levels.map((value) => {
         const label = EDU_LABELS[value];
-        return <span key={value} title={label}>{label}</span>;
+        return (
+          <span key={value} title={label}>
+            {label}
+          </span>
+        );
       });
       linkContent = (
-        <div className="multiSel">{selectedLevels}</div>
+        <div className="multiSel">
+          {selectedLevels}
+        </div>
       );
     }
 
@@ -124,15 +136,18 @@ export class EducationLevel extends React.Component {
 
     return (
       <div>
-        <label htmlFor={eduLevelId}>Education level:</label>
+        <label htmlFor={eduLevelId}>
+Education level:
+        </label>
         <dl
           id={eduLevelId}
           className="dropdown"
           ref={(el) => { this.dropdownEl = el; }}
         >
           <dt>
-            <a
-              href="" onClick={this.handleToggleMenu}
+            <a /* eslint-disable-line jsx-a11y/anchor-is-valid */
+              href=""
+              onClick={this.handleToggleMenu}
               role="button"
               aria-expanded={this.state.expanded.toString()}
               onKeyDown={handleEnterOrSpace(this.handleToggleMenu)}
@@ -145,7 +160,9 @@ export class EducationLevel extends React.Component {
           <dd>
             <div className="multiSelect">
               <fieldset>
-                <legend className="usa-sr-only">Education level:</legend>
+                <legend className="usa-sr-only">
+Education level:
+                </legend>
 
                 <SlideyPanel
                   component="ul"

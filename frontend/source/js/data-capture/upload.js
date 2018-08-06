@@ -1,13 +1,13 @@
 /* global $, window, document */
+/* eslint-disable prefer-destructuring */
 
-import 'document-register-element';
 
 import * as supports from './feature-detection';
 
 import dispatchBubbly from './custom-event';
 
-const HAS_BROWSER_SUPPORT = supports.dragAndDrop() && supports.formData() &&
-                            supports.dataTransfer();
+const HAS_BROWSER_SUPPORT = supports.dragAndDrop() && supports.formData()
+                            && supports.dataTransfer();
 
 /**
  * UploadInput represents a <input is="upload-input" type="file"> web
@@ -30,8 +30,8 @@ export class UploadInput extends window.HTMLInputElement {
       throw new Error('<input is="upload-input"> must have type "file".');
     }
     if (this.hasAttribute('multiple')) {
-      throw new Error('<input is="upload-input"> does not currently ' +
-                      'support the "multiple" attribute.');
+      throw new Error('<input is="upload-input"> does not currently '
+                      + 'support the "multiple" attribute.');
     }
     dispatchBubbly(this, 'uploadinputready');
   }
@@ -94,8 +94,8 @@ export class UploadInput extends window.HTMLInputElement {
     const acceptsList = accepts.split(',').map(s => s.trim().toLowerCase());
 
     return acceptsList.some(extOrType => (
-      (fileType === extOrType) ||
-      (fileName.lastIndexOf(extOrType, fileName.length - extOrType.length) !== -1)
+      (fileType === extOrType)
+      || (fileName.lastIndexOf(extOrType, fileName.length - extOrType.length) !== -1)
     ));
   }
 }
@@ -126,13 +126,13 @@ export class UploadWidget extends window.HTMLElement {
   }
 
   _checkForAjaxFormParent() {
-    if (this.uploadInput.form &&
-        this.uploadInput.form.getAttribute('is') !== 'ajax-form') {
+    if (this.uploadInput.form
+        && this.uploadInput.form.getAttribute('is') !== 'ajax-form') {
       if (window.console && window.console.log) {
         window.console.log(
-          'Warning: <upload-widget> must have a ' +
-          '<form is="ajax-form"> parent in order to support ' +
-          'drag-and-drop.',
+          'Warning: <upload-widget> must have a '
+          + '<form is="ajax-form"> parent in order to support '
+          + 'drag-and-drop.',
         );
       }
       return false;
@@ -145,8 +145,8 @@ export class UploadWidget extends window.HTMLElement {
     const $input = $('input', $el);
 
     if ($input.length !== 1 || $input.attr('is') !== 'upload-input') {
-      throw new Error('<upload-widget> must contain exactly one ' +
-                      '<input is="upload-input">.');
+      throw new Error('<upload-widget> must contain exactly one '
+                      + '<input is="upload-input">.');
     }
 
     this.uploadInput = $input[0];
@@ -160,11 +160,11 @@ export class UploadWidget extends window.HTMLElement {
 
       const id = $('input', $el).attr('id');
       const current = $(
-        '<div class="upload-current">' +
-        '<div class="upload-filename"></div>' +
-        '<div class="upload-changer">Not right? ' +
-        '<label>Choose a different file</label> or drag and drop here.' +
-        '</div></div>',
+        '<div class="upload-current">'
+        + '<div class="upload-filename"></div>'
+        + '<div class="upload-changer">Not right? '
+        + '<label>Choose a different file</label> or drag and drop here.'
+        + '</div></div>',
       );
       $('label', current).attr('for', id);
       $('.upload-filename', current).text(filename);
@@ -193,17 +193,17 @@ export class UploadWidget extends window.HTMLElement {
 
       const id = $('input', $el).attr('id');
       const err = $(
-        '<div class="upload-error">' +
-        '<div class="upload-error-message">Sorry, that type of file is not allowed.</div>' +
-        'Please <label>choose a different file</label> or drag and drop one here.' +
-        '</div></div>',
+        '<div class="upload-error">'
+        + '<div class="upload-error-message">Sorry, that type of file is not allowed.</div>'
+        + 'Please <label>choose a different file</label> or drag and drop one here.'
+        + '</div></div>',
       );
       $('label', err).attr('for', id);
       $el.append(err);
     }
 
-    if (!this._checkForAjaxFormParent() || !HAS_BROWSER_SUPPORT ||
-        supports.isForciblyDegraded(this)) {
+    if (!this._checkForAjaxFormParent() || !HAS_BROWSER_SUPPORT
+        || supports.isForciblyDegraded(this)) {
       this.isDegraded = true;
       return finishInitialization();
     }

@@ -12,7 +12,7 @@
       <p>No valid rows were found in the uploaded spreadsheet. Please check your file and <a href="{% url 'data_capture:bulk_region_10_step_1' %}">try again</a>.</p>
     {% endif %}
 
-    <form method="post" action="{% url 'data_capture:bulk_region_10_step_2' %}">
+    <form method="post" action="{% url 'data_capture:bulk_region_10_step_2' %}" class="form--contract_details">
       {% csrf_token %}
       <div class="form-button-row align-left clearfix">
         {% if total %}

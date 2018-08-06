@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* global QUnit document $ */
 import { appendHighlightedTerm } from '../data-explorer/autocomplete';
 
@@ -19,21 +20,27 @@ QUnit.test('appendHighlightedTerm() works', (assert) => {
     appendHighlightedTerm(
       $('<span></span>'),
       'superduperman',
-      'super').html(),
-    '<b>super</b>duperman');
+      'super'
+    ).html(),
+    '<b>super</b>duperman'
+  );
 
   assert.equal(
     appendHighlightedTerm(
       $('<span></span>'),
       'superduperman',
-      'uper').html(),
-    's<b>uper</b>d<b>uper</b>man');
+      'uper'
+    ).html(),
+    's<b>uper</b>d<b>uper</b>man'
+  );
 
   // test to make sure it doesn't blow up on special-character-only search term
   assert.equal(
     appendHighlightedTerm(
       $('<span></span>'),
       'superduperman',
-      '{{{').html(),
-    'superduperman');
+      '{{{'
+    ).html(),
+    'superduperman'
+  );
 });
